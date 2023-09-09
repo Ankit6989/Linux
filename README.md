@@ -125,6 +125,90 @@ $ sudo systemctl start gdm (or sudo telinit 5)
 ```
 ![image](https://github.com/Ankit6989/Linux/assets/114300894/1db07dcc-86f3-41a5-bc54-2b154a2384a9)
 
+# Basic Operations
+![image](https://github.com/Ankit6989/Linux/assets/114300894/d4fb2ab8-9ef3-4b9e-9181-9171c318b6a3)
+
+## Logging In and Out:
+
+- To log into a text terminal, you'll be prompted for a username (usually with the string "login:") and a password. When typing your password, no characters are displayed on the screen to keep it secure.
+- After successfully logging in, you can perform basic operations and commands within your session.
+- You can also connect to and log into remote systems using Secure SHell (SSH). For example, the command ssh student@remote-server.com connects securely to the remote server "remote-server.com." You can log in using either 
+  a password or a cryptographic key for secure authentication.
+- SSH is a powerful tool for remote access and secure communication in Linux systems.
+![image](https://github.com/Ankit6989/Linux/assets/114300894/415dea24-aa60-445d-8398-95cf74454594)
+
+## Rebooting and Shutting Down:
+
+- The preferred method to shut down or reboot the system is to use the shutdown command. This sends a warning message, and then prevents further users from logging in. The init process will then control shutting down or 
+  rebooting the system. It is important to always shut down properly; failure to do so can result in damage to the system and/or loss of data.
+- The halt and poweroff commands issue shutdown -h to halt the system; reboot issues shutdown -r and causes the machine to reboot instead of just shutting down. Both rebooting and shutting down from the command line     
+  requires superuser (root) access.
+- When administering a multi-user system, you have the option of notifying all users prior to shutdown, as in:
+```
+$ sudo shutdown -h 10:00 "Shutting down for scheduled maintenance."
+```
+![image](https://github.com/Ankit6989/Linux/assets/114300894/a1e5d696-53d5-4884-b59c-67f345c6664f)
+
+## Locating Applications:
+
+- One way to locate programs is to employ the which utility. For example, to find out exactly where the diff program resides on the filesystem:
+```
+$ which diff
+/usr/bin/diff
+```
+
+- If which does not find the program, whereis is a good alternative because it looks for packages in a broader range of system directories:
+```
+$ whereis diff
+diff: /usr/bin/diff /usr/share/man/man1/diff.1.gz /usr/share/man/man1p/diff.1p.gz
+```
+as well as locating source and man files packaged with the program.
+
+![image](https://github.com/Ankit6989/Linux/assets/114300894/4f2b9bf0-c0c0-4d83-8dc0-2836aee02fac)
+
+## Accessing Directories:
+- When you first log into a system or open a terminal, the default directory should be your home directory. You can see the exact location by typing echo $HOME. However, most Linux distributions open new graphical terminals in $HOME/Desktop instead.
+![Screenshot from 2023-09-09 12-22-08](https://github.com/Ankit6989/Linux/assets/114300894/978e69a3-e205-415f-bbd9-42171afb4219)
+
+## Understanding Absolute and Relative Paths:
+
+- **Absolute Pathname**: It begins with the root directory (/) and follows the directory tree from the root to the desired directory or file. Absolute paths always start with /.
+
+- **Relative Pathname**: It starts from the present working directory and doesn't begin with /. Relative paths are shorter and don't specify the full path from the root.
+
+- Multiple slashes (//) between directories and files are allowed, but extra slashes between elements are ignored by the system.
+
+- Common shortcuts include:
+  - `.` (dot): Represents the present directory.
+  - `..` (dot dot): Represents the parent directory.
+  - `~` (tilde): Represents your home directory.
+
+For example, if you're in your home directory and want to move to /usr/bin:
+- Absolute Pathname Method: `$ cd /usr/bin`
+- Relative Pathname Method: `$ cd ../../usr/bin`
+
+In this case, the absolute pathname method is shorter and less error-prone.
+
+![image](https://github.com/Ankit6989/Linux/assets/114300894/336fc508-ded4-40e6-aab4-f032a1d28592)
+
+## Exploring the Filesystem:
+- Traversing up and down the filesystem tree can get tedious. The tree command is a good way to get a bird’s-eye view of the filesystem tree. Use ```tree -d``` to view just the directories and to suppress listing file names.
+![image](https://github.com/Ankit6989/Linux/assets/114300894/3145dfd9-f0d7-4fae-b25c-58fbccdbb180)
+![Screenshot from 2023-09-09 17-35-48](https://github.com/Ankit6989/Linux/assets/114300894/4b7f9d11-6d36-4469-aa52-f548f67a6026)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
