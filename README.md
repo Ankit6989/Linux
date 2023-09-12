@@ -196,6 +196,46 @@ In this case, the absolute pathname method is shorter and less error-prone.
 ![image](https://github.com/Ankit6989/Linux/assets/114300894/3145dfd9-f0d7-4fae-b25c-58fbccdbb180)
 ![Screenshot from 2023-09-09 17-35-48](https://github.com/Ankit6989/Linux/assets/114300894/4b7f9d11-6d36-4469-aa52-f548f67a6026)
 
+## HardLinks
+
+#### Scenario: 
+You have a file named file1. You want to create another file named file2 that is essentially the same as file1, but you want them to share the same data blocks on your disk.
+
+#### Creating Hard Links:
+1) First, you create "file1" with some content:
+```
+$ echo "This is file1." > file1
+```
+2) Now, you create a hard link called file2 that points to the same data as file1:
+```
+$ ln file1 file2
+```
+3) At this point, if you list the files using ls, they both appear as separate files.
+4) The "-i" option to ls prints out in the first column the inode number, which is a unique quantity for each file object.
+```
+$ ls -li file1 file2
+```
+The output will show that both file1 and file2 share the same inode number, indicating they are linked to the same data. However, it might seem like you have two files with different names.
+![image](https://github.com/Ankit6989/Linux/assets/114300894/a4306591-6add-498a-bc00-2c008260bbee)
+![Screenshot from 2023-09-13 00-19-47](https://github.com/Ankit6989/Linux/assets/114300894/7c4c8c89-4d4c-421b-958b-98db2825eab5)
+
+#### How Hard Links Work:
+- Hard links essentially share the same data blocks on your disk. When you create a hard link, you're creating a new filename (file2 in this case) that points to the same data blocks as the original file (file1). The inode number, which is a unique identifier for the data blocks, is the same for both file1 and file2.
+
+#### Caution with Hard Links:
+- Removing either file1 or file2 won't delete the data blocks they share. It will only remove the link. If you recreate a file with the same name, it might use the same data blocks, leading to unexpected behavior.
+- Editing one of the linked files should generally retain the link, but depending on your text editor, some actions might break the link, resulting in separate data blocks.
+
+#### Summary:
+
+Hard links allow you to create multiple filenames that share the same data blocks on your disk, saving space. However, be cautious when deleting or editing linked files, as it can affect how the links work and the underlying data.
+
+
+
+
+
+
+
 
 
 
