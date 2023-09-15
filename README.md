@@ -196,10 +196,11 @@ In this case, the absolute pathname method is shorter and less error-prone.
 ![image](https://github.com/Ankit6989/Linux/assets/114300894/3145dfd9-f0d7-4fae-b25c-58fbccdbb180)
 ![Screenshot from 2023-09-09 17-35-48](https://github.com/Ankit6989/Linux/assets/114300894/4b7f9d11-6d36-4469-aa52-f548f67a6026)
 
-## HardLinks
+# HardLinks
 
 #### Scenario: 
-You have a file named file1. You want to create another file named file2 that is essentially the same as file1, but you want them to share the same data blocks on your disk.
+- You have a file named file1. You want to create another file named file2 that is essentially the same as file1, but you want them to share the same data blocks on your disk.
+- The touch command is used to create a new, empty file with the specified name or update the access and modification times of an existing file.
 
 #### Creating Hard Links:
 1) First, you create "file1" with some content:
@@ -229,6 +230,165 @@ The output will show that both file1 and file2 share the same inode number, indi
 #### Summary:
 
 Hard links allow you to create multiple filenames that share the same data blocks on your disk, saving space. However, be cautious when deleting or editing linked files, as it can affect how the links work and the underlying data.
+
+# Soft(Symbolic)Links
+- Imagine you have a folder on your computer called "Documents," and inside it, there's a file named "Report.docx." You want to create a shortcut to this file on your desktop because you frequently access it.
+
+### 1)Creating a Soft Link:
+You open your terminal and navigate to your desktop. Then, you run the following command:
+```
+ln -s ~/Documents/Report.docx ReportShortcut.docx
+```
+![image](https://github.com/Ankit6989/Linux/assets/114300894/9bfd2c94-41f1-4866-a0fd-dafd56896915)
+
+![Screenshot from 2023-09-14 20-22-11](https://github.com/Ankit6989/Linux/assets/114300894/5fd776e2-f0e1-4b63-9da7-69f51dd6401c)
+![Screenshot from 2023-09-14 20-22-52](https://github.com/Ankit6989/Linux/assets/114300894/e44ca42d-290f-4cc4-a643-846423f470c9)
+
+
+- ln is the command for creating links.
+- -s specifies that you want to create a symbolic (soft) link.
+- ~/Documents/Report.docx is the path to the original file you want to link to.
+- ReportShortcut.docx is the name you want to give to your shortcut.
+
+### 2)Understanding the Result:
+Now, on your desktop, you have a file named "ReportShortcut.docx." To you, it looks like a regular file, but it's actually a symbolic link to the original "Report.docx" file in your "Documents" folder.
+
+### 3)Flexibility:
+The beauty of symbolic links is that they are like shortcuts. If you decide to move "Report.docx" to another folder or rename it, your "ReportShortcut.docx" link will still work. It always points to the original file's current location and name.
+
+### 4)Cross-Filesystem Links:
+Symbolic links can even point to files on different drives or network locations. For instance, you can create a link on your desktop that points to a file on an external hard drive.
+
+### 5)Dangling Links:
+Be cautious, though. If you create a symbolic link to a file, and then you delete or move the original file, you'll have what's called a "dangling link." Your link will still exist, but it won't point to anything valid. So, always ensure your links are up to date.
+
+In summary, symbolic links are like shortcuts that can point to files or folders anywhere on your computer or even on different devices. They offer flexibility and make it easy to access frequently used items, even if their locations change.
+
+# Navigating the Directory History:
+The **'cd'** command in Linux and Unix-like operating systems allows you to change your current working directory. Here's how it works:
+![image](https://github.com/Ankit6989/Linux/assets/114300894/32ded9a3-c41d-439f-a2e2-cbc80ec79685)
+
+
+**cd [directory]**: This command is used to change your current directory to the specified **[directory]**. For example:
+```
+cd /home/user/documents
+```
+![Screenshot from 2023-09-14 20-46-23](https://github.com/Ankit6989/Linux/assets/114300894/7c56fcf7-f1a9-468b-ae11-328b5995fd92)
+
+This changes the current directory to "/home/user/documents."
+
+**cd ..**: The double-dot (..) is a special notation that allows you to move up one directory level. For example:
+```
+cd ..
+```
+![Screenshot from 2023-09-14 20-46-40](https://github.com/Ankit6989/Linux/assets/114300894/b9b61c5a-38b2-4c22-af54-4c1a32a8b0b3)
+
+This would move you up one level in the directory structure.
+
+**cd without an argument**: If you simply type cd without specifying a directory, it will take you back to your home directory. For example:
+
+```
+cd
+```
+![Screenshot from 2023-09-14 20-47-07](https://github.com/Ankit6989/Linux/assets/114300894/179b9cde-f867-4eda-bd6f-86981d72f538)
+
+This would take you to your home directory, such as "/home/user" or "~" (a shorthand for the home directory).
+
+**cd -**: The hyphen (-) is used to switch between the current directory and the previous directory you were in. For example:
+```
+cd -
+```
+![Screenshot from 2023-09-14 20-48-02](https://github.com/Ankit6989/Linux/assets/114300894/03aca9b3-dfac-47eb-a166-751065b1991a)
+
+This toggles between your current directory and the previous one.
+
+The **pushd**, **popd**, and **dirs** commands are related to directory manipulation:
+
+**pushd [directory]**: This command pushes the current directory onto a stack and changes the current directory to the specified [directory]. It's useful for temporarily changing directories while keeping a record of where you were.
+
+**popd**: This command pops the most recent directory from the stack and changes the current directory back to it. This is helpful for returning to previously visited directories in reverse order.
+
+**dirs**: The **'dirs'** command displays the list of directories currently stored in the directory stack.
+
+These commands are especially useful when you need to navigate between multiple directories quickly or switch back and forth between two directories.
+
+**"pwd"** : **prints the full name (the full path) of current/working directory.** By default, right after ssh-ing to a Linux machine you would find yourself in your home directory, usually /home/<username>.
+
+![Screenshot from 2023-09-15 19-40-12](https://github.com/Ankit6989/Linux/assets/114300894/2a019a9c-ea81-4d94-91fa-f24105b69b64)
+![Screenshot from 2023-09-15 19-40-12](https://github.com/Ankit6989/Linux/assets/114300894/da917882-e313-46ba-b4c0-45ccfc8e4fe4)
+
+# Working with Files:
+Linux provides many commands that help you with viewing the contents of a file, creating a new file or an empty file, changing the timestamp of a file, and moving, removing and renaming a file or directory. These commands help you in managing your data and files and in ensuring that the correct data is available at the correct location.
+
+## Viewing Files:
+![image](https://github.com/Ankit6989/Linux/assets/114300894/69e4b74d-c8f5-414a-9ef9-c14f3f7d0b5d)
+
+### Commands: 
+![Screenshot from 2023-09-15 20-21-49](https://github.com/Ankit6989/Linux/assets/114300894/37dd385d-c534-4f99-87ce-3f9c13f8736e)
+![Screenshot from 2023-09-15 20-24-52](https://github.com/Ankit6989/Linux/assets/114300894/00966b00-f8c2-4e1d-9c9e-8d2082041b54)
+![Screenshot from 2023-09-15 20-25-21](https://github.com/Ankit6989/Linux/assets/114300894/2845ea64-0c4e-4e93-a19a-546b9cfb7f3b)
+![Screenshot from 2023-09-15 20-26-33](https://github.com/Ankit6989/Linux/assets/114300894/d3de70f8-b6c0-41d4-88a9-cf46dc5aa83a)
+![Screenshot from 2023-09-15 20-26-43](https://github.com/Ankit6989/Linux/assets/114300894/e744e227-a32f-48a2-abf2-1e4036401127)
+
+## touch
+- touch is often used to set or update the access, change, and modify times of files. By default, it resets a file's timestamp to match the current time.
+
+-However, you can also create an empty file using touch:
+```
+$ touch <filename>
+```
+
+- This is normally done to create an empty file as a placeholder for a later purpose.
+
+- touch provides several useful options. For example, the -t option allows you to set the date and timestamp of the file to a specific value, as in:
+```
+$ touch -t 12091600 myfile
+```
+
+This sets the myfile file's timestamp to 4 p.m., December 9th (12 09 1600).
+![image](https://github.com/Ankit6989/Linux/assets/114300894/c9ba8b34-c903-4fc4-8e46-d6faabd88aa7)
+![Screenshot from 2023-09-15 20-34-59](https://github.com/Ankit6989/Linux/assets/114300894/2162b54b-cdce-4305-9abb-c04deabdc13e)
+
+## mkdir and rmdir
+- The mkdir command is a fundamental tool in the Linux command-line for creating directories. It's straightforward to use, as demonstrated in your examples. Here's a brief summary:
+
+- **'mkdir sampdir'**: Creates a directory named "sampdir" in the current directory.
+- **'mkdir /usr/sampdir'**: Creates a directory named "sampdir" under the "/usr" directory.
+However, it's crucial to use the **'rmdir'** and **'rm -rf'** commands carefully, as they deal with directory removal:
+
+- **'rmdir directory_name'**: Removes an empty directory. If the directory isn't empty, it will not work.
+- **'rm -rf directory_name'**: Deletes a directory and all its contents forcefully. Be cautious when using this command, as it can't be undone, and data will be permanently lost.
+  
+- Always double-check your paths and the contents of the directories you're about to remove to avoid accidental data loss.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
