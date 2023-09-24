@@ -10,6 +10,95 @@ Linux is an open-source and Unix-like operating system kernel that serves as the
 ![Scanned_20230909-1024_page-0005](https://github.com/Ankit6989/Linux/assets/114300894/acecf639-8e81-4b18-ad7c-5fab05d7a625)
 ![Scanned_20230909-1024_page-0006](https://github.com/Ankit6989/Linux/assets/114300894/e3b41dff-e0d0-4b0c-9007-56ed148e8792)
 
+# Linux Kernel
+![Screenshot from 2023-09-24 16-01-48](https://github.com/Ankit6989/Linux/assets/114300894/1c716de5-5ab7-4f83-bc62-9b01bb3e54fb)
+
+- **Kernel:** The kernel is one of the core section of an operating system. It is responsible for each of the major actions of the Linux OS. This operating system contains distinct types of modules and cooperates with underlying hardware directly. The kernel facilitates required abstraction for hiding details of low-level hardware or application programs to the system. There are some of the important kernel types which are mentioned below:
+
+1. **Monolithic Kernel:**
+   - **Architecture:** In a monolithic kernel, the entire operating system, including device drivers, file systems, and system calls, resides in a single large binary image.
+   - **Communication:** Components within the kernel can communicate with each other directly, as they share the same address space.
+   - **Advantages:** Monolithic kernels are typically faster because there is minimal overhead in inter-component communication.
+   - **Examples:** Linux and Unix are well-known examples of operating systems that use monolithic kernels, although modern Linux kernels can load and unload kernel modules for additional functionality.
+
+2. **Microkernels:**
+   - **Architecture:** Microkernels take a minimalist approach by moving most of the operating system's services, including device drivers and file systems, out of the kernel and into user-space processes.
+   - **Communication:** Inter-process communication (IPC) mechanisms are used for components to communicate, making the system modular.
+   - **Advantages:** Microkernels offer improved stability and security because individual components run in separate protected memory spaces. Faults in one component do not crash the entire system.
+   - **Examples:** QNX and MINIX are examples of microkernel-based operating systems.
+
+3. **Exokernels:**
+   - **Architecture:** Exokernels take an extreme approach by providing very little abstraction over hardware resources. They expose hardware resources directly to applications.
+   - **Communication:** Applications and libraries are responsible for managing hardware resources and communication.
+   - **Advantages:** Exokernels offer high performance and flexibility, allowing applications to directly optimize resource usage. However, they require sophisticated programming skills.
+   - **Examples:** Exokernels are more of a research concept and have limited practical implementations.
+
+4. **Hybrid Kernels:**
+   - **Architecture:** Hybrid kernels combine elements of both monolithic and microkernel architectures. They aim to strike a balance between performance and modularity.
+   - **Communication:** Some components, such as device drivers, may run in kernel mode (like monolithic kernels), while others run in user mode (like microkernels).
+   - **Advantages:** Hybrid kernels offer the flexibility of a microkernel with the performance benefits of a monolithic kernel for certain components.
+   - **Examples:** Microsoft Windows NT and macOS are examples of operating systems that use hybrid kernels. They have a mix of user-mode and kernel-mode components.
+
+### Working of Kernel:
+The kernel is the core component of an operating system, including Linux. It acts as an intermediary between hardware and software, managing system resources, and providing essential services to applications and processes. Here's an overview of how the kernel works in a Linux system:
+
+1. **Booting Process:**
+   - When a computer is powered on or rebooted, the BIOS (or UEFI) initializes hardware components and loads the bootloader from a designated boot device.
+   - The bootloader (commonly GRUB or LILO) loads the Linux kernel into memory from the file specified in its configuration.
+
+2. **Kernel Initialization:**
+   - Once loaded, the kernel begins initializing itself.
+   - It performs hardware detection and configuration, identifies and initializes device drivers, and sets up essential data structures.
+
+3. **User Space vs. Kernel Space:**
+   - The kernel operates in a separate memory space called "kernel space" distinct from user applications' memory space called "user space."
+   - This separation provides security and prevents user processes from directly accessing or modifying kernel data.
+
+4. **System Calls:**
+   - User applications communicate with the kernel through a set of predefined functions called system calls.
+   - When an application requires a system service (e.g., file I/O, process management), it makes a system call, transitioning from user space to kernel space.
+
+5. **Process and Memory Management:**
+   - The kernel manages processes, creating, scheduling, and terminating them.
+   - It allocates and deallocates memory for processes and handles memory protection to prevent processes from accessing unauthorized memory regions.
+
+6. **File System and I/O Handling:**
+   - The kernel manages file systems, providing access to files and directories.
+   - It handles input and output (I/O) operations, including reading from and writing to devices, files, and network sockets.
+
+7. **Device Drivers:**
+   - Device drivers are modules within the kernel that interact with hardware devices.
+   - The kernel loads appropriate device drivers during boot to support hardware components like disk drives, network cards, and graphics adapters.
+
+8. **Interrupt Handling:**
+   - The kernel responds to hardware interrupts generated by devices, such as keyboard input or network activity.
+   - It switches context to handle interrupts, servicing the device's request, and resuming normal execution.
+
+9. **Scheduling:**
+   - The kernel employs a scheduler to manage the execution of multiple processes.
+   - It allocates CPU time to processes based on priority, fairness, and scheduling policies.
+
+10. **Security and Access Control:**
+    - The kernel enforces security mechanisms like permissions, user and group access controls, and firewall rules.
+    - It ensures that processes run with appropriate privileges and that unauthorized access is prevented.
+
+11. **Error Handling:**
+    - The kernel monitors system components for errors and failures.
+    - It logs error messages and takes appropriate actions to recover from or mitigate issues when possible.
+
+12. **Power Management:**
+    - The kernel manages power-related tasks, such as controlling CPU frequency, putting hardware components into low-power states, and handling system sleep and wakeup.
+
+13. **Network Stack:**
+    - The kernel includes a network stack responsible for handling network communication, including routing, socket management, and data transmission.
+
+14. **Modularity and Extensions:**
+    - The Linux kernel is highly modular, allowing for the addition or removal of functionality through loadable kernel modules.
+    - This modular approach helps keep the kernel core lean while supporting a wide range of hardware and features.
+
+15. **System Calls Return:**
+    - After servicing a system call or hardware interrupt, the kernel returns control to the user-space application, allowing it to continue executing.
+
 # Linux Basics & System StartUp:
 ![Linux_compressed_page-0001](https://github.com/Ankit6989/Linux/assets/114300894/362db3da-1bad-472b-8489-fc793be75d2f)
 ![Linux_compressed_page-0002](https://github.com/Ankit6989/Linux/assets/114300894/40ad038e-fbdc-4276-ac48-05f825902fbc)
