@@ -438,7 +438,7 @@ This sets the myfile file's timestamp to 4 p.m., December 9th (12 09 1600).
 ![image](https://github.com/Ankit6989/Linux/assets/114300894/c9ba8b34-c903-4fc4-8e46-d6faabd88aa7)
 ![Screenshot from 2023-09-15 20-34-59](https://github.com/Ankit6989/Linux/assets/114300894/2162b54b-cdce-4305-9abb-c04deabdc13e)
 
-## mkdir and rmdir
+## mkdir and rmdir:
 - The mkdir command is a fundamental tool in the Linux command-line for creating directories. It's straightforward to use, as demonstrated in your examples. Here's a brief summary:
 
 - **'mkdir sampdir'**: Creates a directory named "sampdir" in the current directory.
@@ -449,6 +449,70 @@ However, it's crucial to use the **'rmdir'** and **'rm -rf'** commands carefully
 - **'rm -rf directory_name'**: Deletes a directory and all its contents forcefully. Be cautious when using this command, as it can't be undone, and data will be permanently lost.
   
 - Always double-check your paths and the contents of the directories you're about to remove to avoid accidental data loss.
+
+
+## Moving, Renaming or Removing a File:
+
+1. `mv` Command:
+   - `mv` stands for "move."
+   - It has two primary functions:
+     - **Rename a File:** You can use the `mv` command to simply rename a file. For example, `mv oldfile.txt newfile.txt` will rename `oldfile.txt` to `newfile.txt` in the same directory.
+     - **Move a File:** You can also use `mv` to move a file to another location. This can include changing its name if you specify a different destination path. For example, `mv file.txt /path/to/destination/` will move `file.txt` to the specified destination path and retain its original name. To change the name during the move, you can specify a different name in the destination path, like `mv file.txt /path/to/destination/newname.txt`.
+
+2. `rm` Command:
+   - `rm` stands for "remove."
+   - When used without any options, it deletes files or directories without asking for confirmation. For example, `rm file.txt` will delete `file.txt` without any confirmation prompt.
+   - To remove files interactively, you can use the `-i` option with `rm`. This prompts you before each removal, ensuring you don't accidentally delete files. For example, `rm -i file.txt` will ask for confirmation before deleting `file.txt`.
+
+These commands are essential tools for managing files and directories in a Unix/Linux environment, and understanding their usage is crucial for efficient file management.
+
+
+![Screenshot from 2023-09-25 20-00-35](https://github.com/Ankit6989/Linux/assets/114300894/aa828c07-c335-4583-989e-b178df71e229)
+
+![Screenshot from 2023-09-25 19-33-28](https://github.com/Ankit6989/Linux/assets/114300894/bbfa49e5-1b31-4194-8a70-4b050fdadb95) 
+
+3. `rmdir` Command:
+   - `rmdir` is used to remove directories, but it has a limitation—it can only remove empty directories.
+   - **If you attempt to use `rmdir` on a directory that contains files or other subdirectories, you will receive an error message, and the directory will not be removed.**
+   - It's a safe way to delete directories when you're certain they are empty.
+
+4. `rm -rf` Command:
+   - `rm -rf` is a command used for recursively and forcefully removing directories and their contents.
+   - `rm` stands for "remove," and `-r` stands for "recursive," which means it will remove not only the specified directory but also all files and subdirectories within it, and any subdirectories within those subdirectories, and so on, until everything is deleted.
+   - `-f` stands for "force," which means it won't ask for confirmation before removing files or directories. This can be dangerous because it allows for the deletion of files and directories without any confirmation prompts.
+
+   **Important Note**: 
+   - Using `rm -rf` should be done with extreme caution, especially when using it with administrative privileges (e.g., as the root user). A small mistake or incorrect path can result in the deletion of important data, system files, or directories.
+   - It's often recommended to use this command only when you are absolutely sure about what you are deleting, and it's advisable to double-check the paths and contents before executing it.
+
+![image](https://github.com/Ankit6989/Linux/assets/114300894/b7199ddc-9c11-4879-b143-6bfeb90cfd71)
+
+![Screenshot from 2023-09-25 20-03-47](https://github.com/Ankit6989/Linux/assets/114300894/88c292c6-e05b-4e45-9f69-0608aa46d9a1)
+
+
+## Modifying the Command Line Prompt
+
+- `PS1` is an environment variable that defines the format of the command prompt displayed in the terminal.
+
+- The default value of `PS1` is typically set by the system or distribution to provide a basic and informative prompt. For example, it might show the current working directory or the username.
+
+- However, users can customize their command prompt by changing the value of the `PS1` variable. This customization allows users to display various information elements in the prompt, such as the username (`\u`), the hostname (`\h`), the current working directory (`\w`), and more.
+
+- In your example, the command `PS1="\u@\h \$ "` sets the `PS1` variable to display the username (`\u`), the hostname (`\h`), and a `$` symbol followed by a space as the prompt.
+
+- When you enter this command, the prompt immediately changes to reflect the new format. For example, it becomes `student@r9 $`.
+
+- You can use various escape sequences like `\u` and `\h` to insert dynamic information into your prompt. For instance, `\u` displays the username, and `\h` displays the hostname.
+
+- By convention, the root user often has a different prompt to make it clear that you are operating with elevated privileges. The pound sign (`#`) is commonly used as the root prompt, making it easy to distinguish from a regular user prompt.
+
+Customizing the `PS1` variable can be helpful, especially when working on multiple systems or in different roles, as it provides a visual reminder of who you are and what machine you are using. Users can set their preferred `PS1` value in their shell configuration files (e.g., `.bashrc` for Bash) to make the change permanent across sessions.
+
+**More Information On:**
+```https://www.youtube.com/watch?v=toRrlBJBByM```
+
+
+
 
 
 
