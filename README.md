@@ -511,6 +511,148 @@ Customizing the `PS1` variable can be helpful, especially when working on multip
 **More Information On:**
 ```https://www.youtube.com/watch?v=toRrlBJBByM```
 
+## Searching for Files: 
+
+### Standard File Streams:
+
+- There are three standard file streams (or descriptors) that are always open when commands are executed in Unix/Linux:
+   - Standard Input (stdin), often represented as 0, is typically associated with keyboard input.
+   - Standard Output (stdout), often represented as 1, is used for normal command output, which is displayed on the terminal by default.
+   - Standard Error (stderr), often represented as 2, is used for error messages and warnings, which are also displayed on the terminal by default.
+![image](https://github.com/Ankit6989/Linux/assets/114300894/1ef80a77-bfb0-4776-88d7-aaa43d58213c)
+
+
+- By default, stdin is connected to the keyboard, and stdout and stderr are printed on the terminal.
+
+- stderr is commonly redirected to an error logging file to capture error messages separately.
+
+- stdin can be redirected to come from a file or the output of a previous command through a pipe.
+
+- stdout is often redirected into a file to save command output to a file.
+
+- File descriptors are used to represent open files internally in Linux. They are represented by numbers starting at zero.
+
+- stdin corresponds to file descriptor 0, stdout corresponds to file descriptor 1, and stderr corresponds to file descriptor 2.
+
+- If additional files are opened in addition to these three defaults, they will be assigned file descriptors starting from 3 and increasing as needed.
+
+- In various examples and situations, commands can be configured to alter where they get their input, where they write their output, or where they print diagnostic (error) messages by manipulating these standard file streams and file descriptors.
+
+### I/O Redirection: 
+
+- In the command shell, you can redirect the three standard file streams to change the source of input and where output and error messages are written.
+
+- To change the input source from the keyboard to a file, use the less-than sign `<` followed by the name of the file:
+
+  ```
+  $ do_something < input-file
+  ```
+  ![image](https://github.com/Ankit6989/Linux/assets/114300894/d56d887b-d254-4225-ada3-fa851bc2cd1b)
+  ![Screenshot from 2023-09-27 16-19-48](https://github.com/Ankit6989/Linux/assets/114300894/3274d23e-700b-4f52-87ce-7d7df05f4bb5)
+
+
+
+- To redirect the output of a command to a file, use the greater-than sign `>`:
+
+  ```
+  $ do_something > output-file
+  ```
+
+- You can both change the input source and redirect the output at the same time:
+
+  ```
+  $ do_something < input-file > output-file
+  ```
+  ![image](https://github.com/Ankit6989/Linux/assets/114300894/ec680ec7-9509-4b01-8c8a-2123e0a4ceb3)
+  ![Screenshot from 2023-09-27 13-17-50](https://github.com/Ankit6989/Linux/assets/114300894/26ef182e-efae-4db7-8c84-588ac0f56e4c)
+  ![Screenshot from 2023-09-27 13-18-01](https://github.com/Ankit6989/Linux/assets/114300894/1a8b18aa-3109-4f31-b8b0-dc42eec76131)
+
+
+- By default, error messages (stderr) are still displayed on the terminal.
+
+- To redirect stderr to a separate file, use stderr's file descriptor number (2) followed by the greater-than sign `>` and the name of the error file:
+
+  ```
+  $ do_something 2> error-file
+  ```
+  ![Screenshot from 2023-09-27 13-19-16](https://github.com/Ankit6989/Linux/assets/114300894/cfc64799-ae2d-4dd0-89fa-7f44758d6e85)
+  ![Screenshot from 2023-09-27 16-11-44](https://github.com/Ankit6989/Linux/assets/114300894/2ffb5856-8674-410f-9a57-294bfb19e6df)
+  ![image](https://github.com/Ankit6989/Linux/assets/114300894/02ecbc9f-ebe5-48de-96e8-fd885fda4dbc)
+
+
+
+
+- Note that `do_something 1> output-file` is the same as `do_something > output-file`, as 1 is the default file descriptor for stdout.
+
+- You can redirect both stdout and stderr to the same file using the `2>&1` notation:
+
+  ```
+  $ do_something > all-output-file 2>&1
+  ```
+
+- In Bash, you can use a shorthand notation to achieve the same redirection:
+
+  ```
+  $ do_something >& all-output-file
+  ```
+
+These redirection techniques are useful for managing input and output in Unix/Linux commands and scripts, allowing you to work with files and control where data is sent.
+
+**Video:** ```https://www.youtube.com/watch?v=TdPKIMmbe9I```
+
+### Pipes:
+
+- **UNIX/Linux Philosophy:** The UNIX/Linux philosophy emphasizes the use of many simple and short programs (commands) that work together to accomplish complex tasks. This approach favors simplicity and modularity over creating one complex program with numerous options and modes of operation.
+
+- **Pipes (|):** To facilitate the cooperation of commands, UNIX/Linux systems utilize pipes, represented by the vertical-bar symbol (`|`). Pipes allow you to pass the output of one command as input to another command in a chain, creating a pipeline of commands.
+
+- **Pipeline Example:** You can create a pipeline of commands by chaining them together using pipes. For example:
+  
+  ```
+  $ command1 | command2 | command3
+  ```
+  ![Screenshot from 2023-09-27 16-27-52](https://github.com/Ankit6989/Linux/assets/114300894/97403cba-3322-449f-9ecc-49c5eb10d8f4)
+
+
+  In this pipeline, the output of `command1` serves as the input for `command2`, and the output of `command2` serves as the input for `command3`.
+
+- **Efficiency:** Pipelining commands is highly efficient. Commands in the pipeline do not need to wait for the entire pipeline to complete before processing data. On systems with multiple CPUs or cores, available computing power is effectively utilized, resulting in faster execution.
+
+- **No Need for Temporary Files:** One advantage of using pipelines is that there's no need to save intermediate output in temporary files between stages. This saves disk space and reduces disk I/O operations, which can be a significant performance bottleneck.
+
+- **Reduces Bottlenecks:** Disk I/O, often the slowest operation in computing, is minimized when using pipelines. Since data is transferred directly from one command to the next in memory, it speeds up the overall process.
+
+In summary, the UNIX/Linux philosophy of using simple, modular commands and pipelines promotes efficiency, flexibility, and the ability to perform complex operations by combining the strengths of individual commands, all while minimizing the need for temporary storage and disk I/O.
+
+
+### Searching for Files: 
+
+- Being able to quickly find the files you are looking for will save you time and enhance productivity. You can search for files in both your home directory space, or in any other directory or location on the system.
+
+- The main tools for doing this are the locate and find utilities. We will also show how to use wildcards in bash, in order to specify any file which matches a given generalized request.
+
+#### locate:
+The `locate` utility in Linux, which is used for searching files and directories in a database, and how it can be combined with `grep` to filter and narrow down search results. Here's a summary of the key points:
+
+- **`locate` Utility:** The `locate` command is used to perform file and directory searches based on a previously constructed database of files and directories on the system. It's a fast and efficient way to find files matching a specified character string.
+
+- **Database Usage:** `locate` uses a pre-built database of file and directory names, which makes it faster than searching the entire filesystem. The database is usually updated automatically by a related utility called `updatedb`.
+
+- **Filtering with `grep`:** To refine the results obtained from `locate`, you can use `grep` as a filter. `grep` is a command-line utility that searches for specified text patterns in input and prints the lines that contain those patterns.
+
+- **Example Usage:** You can combine `locate` and `grep` with a pipe (`|`) to filter `locate` results. For example:
+  
+  ```
+  $ locate zip | grep bin
+  ```
+
+  This command will list all files and directories where both "zip" and "bin" appear in their names.
+
+- **Database Update:** The database used by `locate` is updated by the `updatedb` utility. This update process typically runs automatically once a day on most Linux systems. However, you can manually update the database at any time by running `updatedb` from the command line as the root user.
+
+In summary, `locate` is a powerful tool for quickly searching files and directories based on a database, and when combined with `grep`, it allows you to filter and refine your search results to find exactly what you're looking for. The database used by `locate` is regularly updated by `updatedb` to ensure up-to-date search results.
+
+
 
 
 
