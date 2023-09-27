@@ -652,6 +652,25 @@ The `locate` utility in Linux, which is used for searching files and directories
 
 In summary, `locate` is a powerful tool for quickly searching files and directories based on a database, and when combined with `grep`, it allows you to filter and refine your search results to find exactly what you're looking for. The database used by `locate` is regularly updated by `updatedb` to ensure up-to-date search results.
 
+![Screenshot from 2023-09-27 16-58-29](https://github.com/Ankit6989/Linux/assets/114300894/2de24a88-5dec-418c-a06b-d933fe52677a)
+![Screenshot from 2023-09-27 17-08-23](https://github.com/Ankit6989/Linux/assets/114300894/f7f3cfdd-d756-48f2-98d1-b6c2c87e73cc)
+![Screenshot from 2023-09-27 17-36-34](https://github.com/Ankit6989/Linux/assets/114300894/361b52ae-6df3-4bdc-8862-32fbb944774a)
+![Screenshot from 2023-09-27 17-36-34](https://github.com/Ankit6989/Linux/assets/114300894/ba7215d9-f688-4164-8e68-57af0e04db57)
+![Screenshot from 2023-09-27 17-42-25](https://github.com/Ankit6989/Linux/assets/114300894/0c255057-11e6-49ee-890a-efe4a1425b87)
+![Screenshot from 2023-09-27 17-42-35](https://github.com/Ankit6989/Linux/assets/114300894/40c2cee4-0cbd-48c1-bcab-a1eec6056aaa)
+![Screenshot from 2023-09-27 17-43-00](https://github.com/Ankit6989/Linux/assets/114300894/f80ee13c-ed25-4bce-9728-316da35126da)
+![Screenshot from 2023-09-27 17-45-26](https://github.com/Ankit6989/Linux/assets/114300894/40eb2309-7073-4c23-b161-17702cacb900)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
