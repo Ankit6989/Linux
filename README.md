@@ -799,7 +799,8 @@ These package management systems are a core part of Linux distributions, making 
 
 Overall, the combination of low-level and high-level package management tools in Linux distributions makes it easier for users to manage software packages while ensuring that dependencies are correctly handled. This approach simplifies the installation and maintenance of software on Linux systems.
 
-![image](https://github.com/Ankit6989/Linux/assets/114300894/157ebd99-c2cc-4550-81bf-a588dddc7acd)
+![Screenshot from 2023-09-28 11-53-48](https://github.com/Ankit6989/Linux/assets/114300894/25c16f7f-68d9-4eaf-b2da-faa276f33e8b)
+
 
 ### Working With Different Package Management Systems: 
 
@@ -824,7 +825,7 @@ Given information is about three popular package management systems used in diff
   - **Common Commands:** Some commonly used Zypper commands are `zypper install`, `zypper update`, and `zypper remove`.
 
 Each of these package management systems serves the specific needs of its respective Linux distributions and provides tools for installing, updating, and managing software packages. While the commands and specific features may differ, the core functionality of package management remains consistent across these systems.
-![image](https://github.com/Ankit6989/Linux/assets/114300894/75d6de3b-f635-4a5c-9b86-38fffb2028da)
+![Screenshot from 2023-09-28 11-54-03](https://github.com/Ankit6989/Linux/assets/114300894/18575040-c419-4ef4-b43d-0b56acb17870)
 ![Screenshot from 2023-09-28 11-40-09](https://github.com/Ankit6989/Linux/assets/114300894/e09455c0-0587-492f-b091-c005e0c90ef5)
 
 
