@@ -625,20 +625,25 @@ These redirection techniques are useful for managing input and output in Unix/Li
 In summary, the UNIX/Linux philosophy of using simple, modular commands and pipelines promotes efficiency, flexibility, and the ability to perform complex operations by combining the strengths of individual commands, all while minimizing the need for temporary storage and disk I/O.
 
 
-### Searching for Files: 
+## Searching for Files: 
 
 - Being able to quickly find the files you are looking for will save you time and enhance productivity. You can search for files in both your home directory space, or in any other directory or location on the system.
 
 - The main tools for doing this are the locate and find utilities. We will also show how to use wildcards in bash, in order to specify any file which matches a given generalized request.
 
-#### locate:
-The `locate` utility in Linux, which is used for searching files and directories in a database, and how it can be combined with `grep` to filter and narrow down search results. Here's a summary of the key points:
+### locate & find program:
+
+- ``find`` is an extremely useful and often-used utility program in the daily life of a Linux system administrator. It recurses down the filesystem tree from any particular directory (or set of directories) and locates files that match specified conditions. The default pathname is always the present working directory.
+
+- For example, administrators sometimes scan for potentially large core files (which contain diagnostic information after a program fails) that are more than several weeks old in order to remove them.
+
+- The `locate` utility in Linux, which is used for searching files and directories in a database, and how it can be combined with `grep` to filter and narrow down search results. Here's a summary of the key points:
 
 - **`locate` Utility:** The `locate` command is used to perform file and directory searches based on a previously constructed database of files and directories on the system. It's a fast and efficient way to find files matching a specified character string.
 
 - **Database Usage:** `locate` uses a pre-built database of file and directory names, which makes it faster than searching the entire filesystem. The database is usually updated automatically by a related utility called `updatedb`.
 
-- **Filtering with `grep`:** To refine the results obtained from `locate`, you can use `grep` as a filter. `grep` is a command-line utility that searches for specified text patterns in input and prints the lines that contain those patterns.
+- **Filtering with `grep`:** ***To refine the results obtained from `locate`, you can use `grep` as a filter. `grep` is a command-line utility that searches for specified text patterns in input and prints the lines that contain those patterns.***
 
 - **Example Usage:** You can combine `locate` and `grep` with a pipe (`|`) to filter `locate` results. For example:
   
@@ -660,6 +665,107 @@ In summary, `locate` is a powerful tool for quickly searching files and director
 ![Screenshot from 2023-09-27 17-42-35](https://github.com/Ankit6989/Linux/assets/114300894/40c2cee4-0cbd-48c1-bcab-a1eec6056aaa)
 ![Screenshot from 2023-09-27 17-43-00](https://github.com/Ankit6989/Linux/assets/114300894/f80ee13c-ed25-4bce-9728-316da35126da)
 ![Screenshot from 2023-09-27 17-45-26](https://github.com/Ankit6989/Linux/assets/114300894/40eb2309-7073-4c23-b161-17702cacb900)
+
+### WildCards and Matching File Names:
+
+![Screenshot from 2023-09-28 09-48-37](https://github.com/Ankit6989/Linux/assets/114300894/504fe643-794c-43b3-854e-176db18cba78)
+
+- **`?` Wildcard:** The `?` wildcard matches any single character. It's useful when you want to search for files where you know some characters but not others. For example:
+  
+  ```
+  ls ba?.out
+  ```
+
+  This command lists files with names starting with "ba," followed by any single character, and ending with ".out."
+  ![Screenshot from 2023-09-28 09-58-20](https://github.com/Ankit6989/Linux/assets/114300894/1ba4b5e6-37fa-4b3f-9b8c-5dacde5bea8f)
+  ![Screenshot from 2023-09-28 10-00-04](https://github.com/Ankit6989/Linux/assets/114300894/77453fb6-abc3-492a-8946-d2c6676f4258)
+  ![Screenshot from 2023-09-28 10-01-01](https://github.com/Ankit6989/Linux/assets/114300894/0020f6b5-a8dc-4ace-9c13-6ed02e8e5628)
+
+
+
+- **`*` Wildcard:** The `*` wildcard matches any string of characters (including none). It's used when you want to search for files where you know part of the name but not the entire name. For example:
+
+  ```
+  ls *.out
+  ```
+
+  This command lists all files with names ending in ".out," regardless of the characters before the ".out" extension.
+  ![Screenshot from 2023-09-28 09-55-44](https://github.com/Ankit6989/Linux/assets/114300894/e5d752be-a7b4-4c17-a0c9-8f4b81e2f1b4)
+  ![Screenshot from 2023-09-28 09-56-55](https://github.com/Ankit6989/Linux/assets/114300894/c38ffb75-7997-4322-b33c-38d1fc76f383)
+  ![Screenshot from 2023-09-28 09-57-39](https://github.com/Ankit6989/Linux/assets/114300894/cba05514-a255-4dd2-abcc-15ec203330d3)
+
+
+
+
+- **`[set]` Wildcard:** The `[set]` wildcard allows you to match any character within a specified set of characters. For example:
+
+  ```
+  ls [adf].txt
+  ```
+  ![Screenshot from 2023-09-28 10-01-50](https://github.com/Ankit6989/Linux/assets/114300894/76d3e652-8f99-4e8b-ab6c-5c0f783ec689)
+  ![Screenshot from 2023-09-28 10-03-12](https://github.com/Ankit6989/Linux/assets/114300894/5e5634d6-b91b-4e1a-bc4d-dad4116dcbcf)
+
+
+
+  This command lists files with names that contain a single character, and that character can be either 'a,' 'd,' or 'f,' followed by ".txt."
+
+- **`[!set]` Wildcard:** The `[!set]` wildcard matches any character that is not in the specified set of characters. For example:
+
+  ```
+  ls [!aeiou].doc
+  ```
+
+  This command lists files with names that contain a single character not among the vowels ('a,' 'e,' 'i,' 'o,' 'u'), followed by ".doc."
+
+Wildcards are powerful tools for searching and manipulating files and directories in the command line, allowing you to locate and work with files based on flexible naming patterns.
+
+![Screenshot from 2023-09-28 09-32-16](https://github.com/Ankit6989/Linux/assets/114300894/38d328aa-e1cc-4e1b-ba66-35203f0e0760)
+
+#### Some Extra Wild Cards:
+![Screenshot from 2023-09-28 10-05-34](https://github.com/Ankit6989/Linux/assets/114300894/1788295f-0531-4433-885c-e094f815b254)
+![Screenshot from 2023-09-28 10-05-24](https://github.com/Ankit6989/Linux/assets/114300894/b37137a3-85a6-40f8-be9a-f4df1cf5440f)
+
+### Using Advanced find Options: 
+!!!
+
+### Finding Files Based on Time and Size:
+
+**Finding Files Based on Time:**
+
+- You can use the `-ctime`, `-atime`, and `-mtime` options with `find` to search for files based on their inode metadata change time, access time, or modification time, respectively.
+- Here, `-ctime` is when the inode metadata (i.e. file ownership, permissions, etc.) last changed; it is often, but not necessarily, when the file was first created. You can also search for accessed/last read `(-atime)` or modified/last written `(-mtime)` times. The number is the number of days and can be expressed as either a number `(n)` that means exactly that value, `+n`, which means greater than that number, or `-n`, which means less than that number. There are similar options for times in minutes (as in `-cmin`, `-amin`, and `-mmin`).
+- The number after these options represents the number of days ago when the event occurred, and you can use `+n` to search for files older than n days or `-n` to search for files newer than n days.
+
+Example: To find files with inode metadata changed exactly 3 days ago:
+
+```bash
+$ find / -ctime 3
+```
+
+**Finding Files Based on Size:**
+
+```bash
+$ find / -size 0
+```
+- You can use the `-size` option with `find` to search for files based on their size. The size is measured in 512-byte blocks by default, but you can specify other units like bytes (c), kilobytes (k), megabytes (M), or gigabytes (G).
+- To search for files larger or smaller than a specific size, you can use `+n` or `-n`, respectively.
+
+Example: To find files larger than 10 megabytes and run a command on them:
+
+```bash
+$ find / -size +10M -exec command {} ';'
+```
+
+In this example, replace `command` with the actual command you want to run on the files that match the size criterion.
+
+These `find` options are helpful for searching and performing actions on files based on various attributes, providing flexibility in managing files in your Unix/Linux system.
+
+Refer This Video for more info: ```https://www.youtube.com/watch?v=kQ9HIWf5MC4```
+
+
+
+
+
 
 
 
