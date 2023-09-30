@@ -993,9 +993,9 @@ The GNU Info System offers an alternative and more comprehensive way to access d
 ### The --help Option:
 
 - Most commands have an available short description which can be viewed using the --help or the -h option along with the command or application. For example, to learn more about the man command, you can type: 
-
+```
 $ man --help
-
+```
 The --help option is useful as a quick reference and it displays information faster than the man or info pages.
 ![image](https://github.com/Ankit6989/Linux/assets/114300894/b90c9280-2191-4355-8562-5cefab66bdb6)
 
@@ -1006,6 +1006,154 @@ The --help option is useful as a quick reference and it displays information fas
 - Desktop help system
 - Package documentation
 - Online resources
+
+# Processes:
+## Introductuion to Process and Process Attribution:
+### What is a Process:
+
+![Screenshot from 2023-09-30 09-12-41](https://github.com/Ankit6989/Linux/assets/114300894/2892ca36-afe5-497d-9273-7cb3a5f741ba)
+
+1. **Definition of a Process**: A process is an instance of one or more related tasks (threads) executing on a computer. It represents the execution of a program in action.
+
+2. **Difference from Programs or Commands**: A process is not the same as a program or command. A single program or command can initiate multiple processes. Processes are the active, running instances of programs.
+
+3. **Independence of Processes**: Processes can be independent of each other. They run separately and may have their own memory, resources, and execution context. The failure of one process doesn't necessarily affect others.
+
+4. **Resource Usage**: Processes utilize system resources, including memory, CPU cycles, and peripheral devices like network cards, hard drives, printers, and displays.
+
+5. **Operating System's Role**: The operating system, particularly the kernel, manages and allocates system resources to processes. It ensures fair resource allocation and optimized system utilization.
+
+This information provides a clear understanding of processes in a computing context. Processes are fundamental to how modern computer systems manage and execute tasks and applications.
+
+### Process Types:
+
+- A terminal window (one kind of command shell) is a process that runs as long as needed. It allows users to execute programs and access resources in an interactive environment. You can also run programs in the background, which means they become detached from the shell.
+
+Processes can be of different types according to the task being performed.
+
+
+![Screenshot from 2023-09-30 09-16-48](https://github.com/Ankit6989/Linux/assets/114300894/d69a8317-1280-4969-887b-8632e49135cb)
+
+### Process Scheduling and States:
+
+1. **Scheduler Function**: The kernel's scheduler is a critical function responsible for managing processes. It allocates CPU time to processes based on their relative priority, time requirements, and the time already granted to them.
+
+2. **Running State**: When a process is in the "running" state, it is actively executing instructions on a CPU or waiting for its turn to execute. All processes in this state are part of a "run queue," and in multi-core systems, each core has its own run queue. The term "running" can be misleading because a process might actually be swapped out, waiting for its next turn.
+
+3. **Sleep State**: Processes may enter a "sleep" state when they are waiting for some event to occur before they can continue executing, such as waiting for user input. In this state, a process is referred to as sitting in a "wait queue."
+
+4. **Other Process States**: There are additional, less common process states, especially during termination. For example, when a child process completes its execution but the parent process hasn't inquired about its status, the child process is in a "zombie" state. It's not active but still appears in the list of processes.
+ 
+![Screenshot from 2023-09-30 09-22-01](https://github.com/Ankit6989/Linux/assets/114300894/935f75f6-9a4c-46c5-b82d-1e5f3bf38328)
+
+This information explains the dynamic nature of processes within an operating system and how the scheduler manages their execution and states. It's essential for understanding how modern operating systems handle multitasking and resource allocation.
+
+### Process and Thread IDs:
+- At any given time, there are always multiple processes being executed. The operating system keeps track of them by assigning each a unique process ID (PID) number. The PID is used to track process state, CPU usage, memory use, precisely where resources are located in memory, and other characteristics.
+
+- New PIDs are usually assigned in ascending order as processes are born. Thus, PID 1 denotes the init process (system initialization process), and succeeding processes are gradually assigned higher numbers.
+
+![Screenshot from 2023-09-30 09-34-26](https://github.com/Ankit6989/Linux/assets/114300894/653a2ac4-1a22-48e7-97f7-4a6fdff6932b)
+
+### Terminating a Process: 
+This passage provides information on how to terminate a misbehaving or problematic application or process in a Unix-like operating system using the `kill` command:
+
+1. **Terminate a Process**: To terminate a process, you can use the `kill` command followed by the process ID (`<pid>`) of the target process. For example, you can use the following command:
+
+   ```
+   kill -SIGKILL <pid>
+   ```
+
+   Alternatively, you can use the shorthand `-9` option, which is equivalent to `SIGKILL`:
+
+   ```
+   kill -9 <pid>
+   ```
+
+   These commands forcefully terminate the specified process. The process ID (`<pid>`) uniquely identifies a running process.
+
+2. **Limitations**: You can only terminate processes that belong to your user unless you have root (superuser) privileges. The `kill` command, despite its name, is not limited to terminating processes; it can also be used to send various types of signals to processes, including signals for purposes other than termination.
+
+Keep in mind that forcefully terminating a process using `SIGKILL` or `-9` should be used as a last resort, as it doesn't allow the process to perform any cleanup tasks. It should be reserved for situations where a process is unresponsive or needs to be immediately terminated. In normal circumstances, you may want to use less aggressive signals (e.g., `SIGTERM`) to allow the process to shut down gracefully.
+
+![Screenshot from 2023-09-30 09-47-24](https://github.com/Ankit6989/Linux/assets/114300894/fdaa457e-1f26-4d34-b3c2-c7bd9ae34369)
+![Screenshot from 2023-09-30 09-50-27](https://github.com/Ankit6989/Linux/assets/114300894/f429d080-48a9-4ac7-9669-539dae95f84f)
+
+***For More Info:*** ```https://www.youtube.com/watch?v=SLae9g6iJD4```
+
+### User and Group Ids:
+
+![Screenshot from 2023-09-30 09-54-55](https://github.com/Ankit6989/Linux/assets/114300894/35321edd-6601-4e61-b77a-7b894cd440ee)
+
+1. **Real User ID (RUID)**: When a user initiates a process, the operating system assigns it a Real User ID (RUID), which identifies the user who started the process. This is used to attribute the process to a specific user.
+
+2. **Effective User ID (EUID)**: The Effective User ID (EUID) determines the access rights for the user with respect to the process. It may or may not be the same as the RUID. The EUID is used to determine what actions a process can perform.
+
+3. **Real Group ID (RGID)**: Groups of users can be organized into enumerated groups, and each group is identified by a Real Group ID (RGID). This ID is used to associate users with specific groups.
+
+4. **Effective Group ID (EGID)**: The access rights of a group are determined by the Effective Group ID (EGID). It specifies which group's permissions apply to the process. A user can be a member of one or more groups, and the EGID determines the group permissions for the process.
+
+In practice, while these details about RUID, EUID, RGID, and EGID are important for understanding and managing user and group permissions at a granular level, many discussions and commands in Unix-like systems often focus on the more commonly used User ID (UID) and Group ID (GID) for simplicity.
+
+Understanding these concepts is essential for managing file permissions, access control, and security in Unix-based operating systems, where precise control over who can do what is a fundamental part of the system's security model.
+
+### More About Priorities:
+
+1. **Multiple Processes**: In a Linux system (similar to most modern operating systems), many processes can be running concurrently. However, the CPU can only execute one task at a time, just as a car can have only one driver.
+
+2. **Process Priority**: Linux allows you to set and manipulate the priority of processes. Priority determines which processes get preferential access to the CPU. Higher priority processes are scheduled to run before lower priority ones.
+
+3. **Nice Value**: The priority of a process is set using a value called "nice value" or "niceness." The lower the nice value, the higher the priority. Processes with low nice values are considered more important and are scheduled to run sooner, while those with high nice values can wait longer for CPU time.
+
+4. **Nice Value Range**: In Linux, the nice value ranges from -20 to +19. A nice value of -20 represents the highest priority, while +19 represents the lowest. This may seem counterintuitive because it means that the "nicer" a process is (i.e., the lower its nice value), the higher its priority.
+
+The convention of using lower nice values for higher priority processes dates back to the early days of UNIX and has been retained for compatibility and historical reasons. It's essential for managing system resource allocation and ensuring that critical tasks are executed promptly while lower-priority tasks wait their turn.
+
+Indeed, you can assign a "real-time priority" to tasks in a Linux system, especially for time-sensitive operations where strict timing constraints are crucial. However, it's important to understand that this "real-time priority" is different from what's referred to as "hard real-time."
+
+1. **Real-Time Priority (Linux)**: In Linux, you can assign a real-time priority to tasks or processes that require rapid and predictable response times. This real-time priority is a higher priority level than regular processes. It's particularly useful for tasks like machine control or data collection, where immediate responses are critical. However, it's essential to note that Linux's real-time priority is not as strict as "hard real-time."
+
+2. **Hard Real-Time**: Hard real-time systems have extremely stringent timing requirements. In a hard real-time system, tasks or processes must complete their execution within very well-defined and guaranteed time windows. Failure to meet these deadlines can have severe consequences, such as system failure or safety hazards. Hard real-time systems are typically found in critical applications like aerospace, automotive control systems, and medical devices.
+
+In summary, while Linux provides a "real-time priority" feature that allows for high-priority task scheduling, it's not equivalent to a true "hard real-time" system. Hard real-time systems have much more stringent timing guarantees and are used in applications where timing precision is a matter of utmost importance and safety. Linux real-time priority is valuable for improving response times in time-sensitive applications but may not meet the strict demands of hard real-time systems.
+
+### How to Manage Processes on Linux with nohup, nice, bg, fg, jobs Commands:
+
+Video Link: ```https://www.youtube.com/watch?v=kmk3_kEiJvk```
+!!!!
+
+
+
+
+
+## Process Metrics and Process Control:
+### Load Averages: 
+
+The concept of load average in the context of operating systems, particularly in Linux, is a measure of system workload. It's calculated as the average number of processes in one of three states over a certain period of time, typically 1, 5, or 15 minutes. The states considered are:
+![Screenshot from 2023-09-30 11-18-20](https://github.com/Ankit6989/Linux/assets/114300894/9f98d3e0-f12a-4d96-bf7a-ffff49cf6925)
+![image](https://github.com/Ankit6989/Linux/assets/114300894/5a72492a-b440-4fb5-b715-97e27defd6fd)
+
+- The load average can be viewed by running w, top or uptime. We will explain the numbers next.
+
+1. **Processes Actively Running on a CPU**: These are processes that are currently executing on a CPU core.
+
+2. **Processes Considered Runnable**: These processes are in the "run queue," which means they are ready to run but are waiting for their turn to execute because the CPU is currently busy with other tasks.
+
+3. **Sleeping Processes**: These are processes that are currently in a sleep state, often waiting for some external event or resource, such as I/O (Input/Output) operations, to become available.
+
+It's worth noting that the way Linux calculates load average includes not only the processes in the "run queue" but also "uninterruptible sleepers." Uninterruptible sleepers are processes that cannot be easily awakened and are often waiting for I/O operations to complete. This distinction is specific to Linux and may differ from other Unix-like operating systems.
+
+Load average provides insight into how busy a system is over time. A high load average indicates that the system has been busy and may be struggling to keep up with the demand, which could lead to performance issues. It's a valuable metric for administrators to monitor and understand system resource utilization.
+
+### Interpreting Load Averages: 
+
+
+
+
+
+
+
+
 
 
 
