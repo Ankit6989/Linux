@@ -1182,6 +1182,11 @@ Monitoring load averages is a valuable way to assess system performance and iden
 
 These features provide flexibility and control over how you manage and prioritize tasks in the Linux terminal, especially when dealing with long-running processes or multiple tasks simultaneously.
 
+![“ ” can be used to put a process in background](https://github.com/Ankit6989/Linux/assets/114300894/6b1eeeb8-d9b2-4cc5-8998-001edc22ea5e)
+![To make any process from background to foreground](https://github.com/Ankit6989/Linux/assets/114300894/a8f59d85-60ae-4e64-9c04-e2392ae5f391)
+
+
+
 
 
 
