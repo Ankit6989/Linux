@@ -1185,14 +1185,86 @@ These features provide flexibility and control over how you manage and prioritiz
 ![“ ” can be used to put a process in background](https://github.com/Ankit6989/Linux/assets/114300894/6b1eeeb8-d9b2-4cc5-8998-001edc22ea5e)
 ![To make any process from background to foreground](https://github.com/Ankit6989/Linux/assets/114300894/a8f59d85-60ae-4e64-9c04-e2392ae5f391)
 
+### Managing Jobs:
 
+- The jobs utility displays all jobs running in background. The display shows the job ID, state, and command name, as shown here.
 
+- jobs -l provides the same information as jobs, and adds the PID of the background jobs.
 
+- The background jobs are connected to the terminal window, so, if you log off, the jobs utility will not show the ones started from that window.
 
+![Screenshot from 2023-10-16 10-56-57](https://github.com/Ankit6989/Linux/assets/114300894/0a6266c1-3f71-44a4-a1e0-e7243e8d1eb8)
 
+## Listing Processes: ps and top
+### The ps Command (System V Style)
 
+The `ps` command in Linux, which stands for "process status," provides information about currently running processes based on their Process ID (PID). Here are some key points about using `ps`:
 
+1. **Viewing Process Status:** `ps` offers information about running processes. It's a command-line tool, but graphical system monitor applications are available as well (e.g., gnome-system-monitor, ksysguard).
 
+2. **Variants:** Besides `ps`, you can use alternatives like `top`, `htop`, `atop`, or `btop` for monitoring processes.
+
+3. **Options:** `ps` offers various options to specify which tasks to examine, the information to display, and the output format.
+
+4. **Basic Usage:** Without options, `ps` shows all processes running under the current shell.
+
+5. **Filter by User:** Use the `-u` option to display information for processes associated with a specific username.
+
+6. **Full System Process Details:** The command `ps -ef` displays detailed information about all processes in the system.
+
+7. **Thread Information:** For even more detail, you can use `ps -eLf` to display information about every thread within processes. Keep in mind that a process may contain multiple threads.
+
+In summary, `ps` is a versatile command for monitoring and managing processes in a Linux system. It provides various options to tailor the displayed information to your specific needs.
+
+![Screenshot from 2023-10-16 11-07-01](https://github.com/Ankit6989/Linux/assets/114300894/792dfea5-d19c-4742-8508-8a33eda44d32)
+
+### The ps Command (BSD Style)(Berkeley Software Distribution)
+
+In some versions of the `ps` command, particularly those inspired by BSD Unix, you can specify options without preceding dashes. Here are a couple of examples:
+
+1. **`ps aux`**: This command displays all processes of all users. It provides a comprehensive view of running processes.
+
+2. **`ps axo`**: Using this format, you can specify which attributes or columns you want to view in the output. This allows you to customize the information you see when using `ps`.
+
+The `ps aux` command is a popular way to get a broad overview of running processes, and `ps axo` allows you to tailor the output to your specific requirements. The provided screenshot likely shows the output of one of these `ps` commands, illustrating the process details and attributes for the running processes.
+
+### The Process Tree:
+
+`pstree` displays the processes running on the system in the form of a tree diagram showing the relationship between a process and its parent process and any other processes that it created. Repeated entries of a process are not displayed, and threads are displayed in curly braces.
+
+![Screenshot from 2023-10-16 11-37-25](https://github.com/Ankit6989/Linux/assets/114300894/29926a5c-e0aa-41e3-b8b7-157bbc6ba94b)
+
+### top:
+
+Monitoring system performance in real-time is crucial for identifying resource-hungry processes and keeping an eye on system health. Here are some methods to achieve this:
+
+1. **Using `ps` with Regular Intervals:**
+   - You can periodically run the `ps` command, e.g., `watch -n 1 'ps aux'`, to get updates on system processes at specific intervals.
+   - This provides a static view but can help track changes over time.
+
+2. **Using `top` for Real-Time Monitoring:**
+   - The `top` command provides constant real-time updates on system performance.
+   - It refreshes every few seconds (typically every two seconds by default) until you exit by typing 'q'.
+   - `top` prominently displays processes that are consuming the most CPU cycles and memory, making it easier to identify resource-intensive tasks.
+
+By using `top`, you can actively monitor your system and promptly respond to any performance issues, making it a valuable tool for system administrators and users concerned about system health and resource usage.
+
+### First Line of the top Output:
+
+The first line of the `top` command's output provides a quick summary of the system's current status, including:
+
+1. **Uptime:** This shows how long the system has been running since the last reboot.
+
+2. **Users:** It indicates the number of users currently logged into the system.
+
+3. **Load Average:** The load average is a critical indicator of system activity. It represents the average number of processes that are either running or waiting for CPU time over different time intervals.
+   
+   - The load average is presented in three values: one-minute, five-minute, and 15-minute averages.
+   - A load average of 1.00 per CPU core typically indicates a fully utilized but not overloaded system.
+   - If the load average exceeds this value, it suggests that processes are competing for CPU resources, which might slow down system responsiveness.
+   - A significantly high load average may indicate issues such as a runaway process that's not responding as expected.
+
+Monitoring the load average helps administrators gauge system performance and identify potential problems or resource bottlenecks.
 
 
 
