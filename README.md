@@ -1444,6 +1444,7 @@ Please note that the availability and behavior of the `at` command may vary depe
 ### cron:
 
 **Basic Explanation:**
+
 ![Screenshot from 2023-10-17 02-31-42](https://github.com/Ankit6989/Linux/assets/114300894/94c96c06-db1e-474a-bffc-63b7ae8acada)
 ![Screenshot from 2023-10-17 02-32-05](https://github.com/Ankit6989/Linux/assets/114300894/b4238ae1-555f-4f39-ac32-8f33d960b897)
 ![Screenshot from 2023-10-17 02-32-26](https://github.com/Ankit6989/Linux/assets/114300894/9eec4ac6-3c9c-4967-af3c-709053b89f1e)
