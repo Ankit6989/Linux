@@ -1404,6 +1404,7 @@ Each of these programs has its own set of features and fans, so users can choose
 ### SCheduling Future Processes Using at:
 
 **Basic explanation:**
+
 ![Screenshot from 2023-10-16 23-11-26](https://github.com/Ankit6989/Linux/assets/114300894/9eeb73e2-e429-4340-9dc1-45752af6d463)
 ![Screenshot from 2023-10-16 23-11-51](https://github.com/Ankit6989/Linux/assets/114300894/68bb6111-d3de-4909-89ea-bcd39a340417)
 
@@ -1599,10 +1600,41 @@ WARNING: If you mount a filesystem on a non-empty directory, the former contents
 
 ### Mounting and Unmounting:
 
+The `mount` command in Linux is used to attach a filesystem, which can be either a local filesystem on the computer or a network-based filesystem, into the existing directory structure. The fundamental arguments for the `mount` command are the device node (the source) and the mount point (the destination). Here's an example:
 
+To mount a filesystem from the device `/dev/sda5` into the directory `/home`, you would use the following command:
 
+```bash
+$ sudo mount /dev/sda5 /home
+```
 
+This attaches the filesystem found in the disk partition associated with the `/dev/sda5` device node to the `/home` directory.
 
+To unmount the filesystem, you'd use the `umount` command. It's important to note that it's `umount`, not `unmount`. Here's an example of unmounting the `/home` directory:
+
+```bash
+$ sudo umount /home
+```
+
+Only a user with root privileges (either logged in as root or using `sudo`) can execute these mount and unmount commands, unless the system's configuration allows other users to do so.
+
+If you want a filesystem to be automatically mounted every time the system starts up, you need to edit the `/etc/fstab` file (short for filesystem table). This file contains the configuration of all pre-configured filesystems. You can use the `man fstab` command to learn how this file is used and how to configure it.
+
+Using the `mount` command without any arguments will display a list of all currently mounted filesystems.
+
+You can use the `df -Th` (disk free) command to obtain information about mounted filesystems, including the filesystem type and usage statistics regarding used and available space.
+
+In the output of `df -Th`, you might notice entries of type `tmpfs`. These entries do not represent real physical filesystems but are parts of system memory that are displayed as such to utilize certain programming features.
+
+### NFS and Network Filesystems:
+
+To facilitate sharing data across physical systems, whether they are in the same location or connected via the Internet, network or distributed filesystems come into play. These network filesystems can centralize their data on one machine or distribute it across multiple network nodes. In essence, a network filesystem is like an aggregation of lower-level filesystems of varying types.
+
+One common use case involves system administrators mounting remote users' home directories on a central server. This approach grants users access to the same files and configuration settings across multiple client systems. As a result, users can log in to different computers and still have consistent access to their files and resources.
+
+The most widespread network filesystem is known as NFS (Network Filesystem), with a history dating back to its initial development by Sun Microsystems. Another well-known implementation is CIFS (Common Internet File System), often referred to as SAMBA, which has its origins in Microsoft technologies. In the subsequent discussion, we will focus on NFS as an example of network filesystems.
+
+![Screenshot from 2023-10-17 03-21-30](https://github.com/Ankit6989/Linux/assets/114300894/8449a5b8-5bf5-499d-b44c-2611ae639930)
 
 
 
