@@ -1266,21 +1266,338 @@ The first line of the `top` command's output provides a quick summary of the sys
 
 Monitoring the load average helps administrators gauge system performance and identify potential problems or resource bottlenecks.
 
+![image](https://github.com/Ankit6989/Linux/assets/114300894/705ddd7a-d004-4986-8d49-83ebcce6b15a)
+
+### Second Line of the top Output:
+
+The second line of the `top` output provides information about the total number of processes and breaks down the processes into different states:
+
+- **Total Processes:** This shows the overall number of processes currently running on the system.
+
+- **Running:** It indicates the number of processes that are currently executing and actively using the CPU.
+
+- **Sleeping:** This represents the number of processes that are in a waiting state, typically because they are waiting for some event or resource to become available.
+
+- **Stopped:** It shows the number of processes that are in a stopped state. Stopped processes have been temporarily halted, often by a user or the system, and can be resumed later.
+
+- **Zombie:** This displays the number of zombie processes. Zombie processes are those that have completed their execution but still have an entry in the process table. They should be cleaned up and removed from the system.
+
+Comparing the number of running processes with the load average can help assess whether the system is nearing its capacity. It can also be useful for identifying potential issues, such as an excessive number of running processes or any anomalies in process states like stopped or zombie processes.
+
+![image](https://github.com/Ankit6989/Linux/assets/114300894/3eff7436-7ce8-48b5-a2f7-473859e5692f)
 
 
+### Third Line of the top Output:
+
+The third line of the `top` output provides an overview of how CPU time is divided and used on the system. It includes several metrics:
+
+- **us (User):** This percentage represents the amount of CPU time consumed by user processes. It shows the portion of CPU time spent on tasks initiated by regular users.
+
+- **sy (System):** This percentage indicates the CPU time used by the system or kernel processes. It reflects the portion of CPU time devoted to core system operations.
+
+- **ni (Nice):** It shows the percentage of CPU time used for user jobs running at a lower priority. Processes with a higher nice value run at a lower priority and are less likely to impact other tasks.
+
+- **id (Idle):** The idle percentage represents the amount of CPU time that the CPU is idle, not doing any work. If the load average is high, the idle time is typically low, indicating high system activity.
+
+- **wa (I/O Wait):** This percentage reflects the CPU time spent by processes waiting for I/O operations to complete. It can be a sign of I/O-bound processes.
+
+- **hi (Hardware Interrupts) and si (Software Interrupts):** These metrics show the percentages of CPU time used for hardware and software interrupts, respectively. Hardware interrupts are typically triggered by external devices, while software interrupts result from system calls or software events.
+
+- **st (Steal Time):** Steal time is generally associated with virtual machines. It indicates the percentage of idle CPU time taken by other virtual machines or hypervisors in a virtualized environment.
+
+Monitoring these CPU metrics in real-time helps you understand how system resources are being utilized and whether any resource-intensive processes or I/O bottlenecks are affecting system performance.
+
+![image](https://github.com/Ankit6989/Linux/assets/114300894/b917f556-7ec1-4969-9ae7-dc4ceb61d25a)
+
+### Fourth and Fifth Lines of the top Output:
+
+The fourth and fifth lines of the `top` output provide information on memory usage, with a distinction between physical memory (RAM) and swap space:
+
+**Line 4 (Physical Memory):**
+- **Total:** The total physical memory (RAM) available in the system.
+- **Used:** The portion of physical memory currently in use.
+- **Free:** The amount of physical memory currently available for use.
+
+**Line 5 (Swap Space):**
+- **Total:** The total swap space available, which is a portion of the hard drive reserved for temporary storage.
+- **Used:** The amount of swap space in use.
+- **Free:** The available free space in the swap area.
+
+It's crucial to monitor memory usage carefully to ensure optimal system performance. When physical memory is fully utilized, the system starts using swap space as an extension of available memory. However, accessing data from swap space on the hard drive is significantly slower than accessing data from RAM. As a result, frequent swapping can lead to performance degradation.
+
+To address memory-related performance issues, you can consider adding more physical memory (RAM) to the system. Additionally, if the system frequently resorts to swap space, you may also want to explore increasing the size of the swap space. Balancing physical memory and swap space allocation is essential for maintaining good system performance.
+
+![image](https://github.com/Ankit6989/Linux/assets/114300894/65ea7a23-4ffb-4a95-bd02-380ed4a3b5cc)
+
+### Process List of the top Output
+
+In the `top` output, each line represents information about a specific process. The columns in the process list provide the following details:
+
+1. **PID (Process Identification Number):** A unique numerical identifier for the process.
+
+2. **USER (Process Owner):** The username of the owner or user responsible for the process.
+
+3. **PR (Priority) and NI (Nice Value):** The priority of the process (PR) and the nice value (NI), which indicates the process's scheduling priority. Lower nice values have higher priority.
+
+4. **VIRT (Virtual Memory):** The total virtual memory size used by the process. This includes both RAM and swap space.
+
+5. **RES (Physical Memory, Resident Set):** The amount of physical memory (RAM) currently used by the process.
+
+6. **SHR (Shared Memory):** The amount of shared memory used by the process.
+
+7. **S (Status):** The current status of the process, such as "R" for running, "S" for sleeping, or "Z" for zombie.
+
+8. **%CPU (Percentage of CPU):** The percentage of CPU utilization by the process.
+
+9. **%MEM (Percentage of Memory):** The percentage of physical memory (RAM) used by the process.
+
+10. **TIME+ (Execution Time):** The total execution time of the process since it started.
+
+11. **COMMAND:** The command or program associated with the process.
+
+These columns provide essential information about the processes running on the system, allowing you to identify resource-intensive or problematic processes and manage system performance effectively. The default ordering typically displays processes in descending order of CPU usage.
+
+![image](https://github.com/Ankit6989/Linux/assets/114300894/bddcffb6-f686-4019-83c6-b6b2a59dcc7b)
+
+### Interactive Keys with top:
+
+`top` is not only a tool for reporting system information but also an interactive utility for monitoring and controlling processes in real-time. While `top` is running in a terminal window, you can use single-letter commands to modify its behavior and manage processes. Here are some common interactive commands in `top`:
+
+**NOTE:** To use all the keys you need to use top command first and then use the keys.
+
+1. **Sorting:**
+   - Press `M` to sort processes by memory usage (highest to lowest).
+   - Press `P` to sort processes by CPU usage (highest to lowest).
+
+2. **Changing Priority:**
+   - Press `r` to renice a process. You'll be prompted to enter the PID and the new nice value.
+   - Press `k` to kill a process. You'll be prompted to enter the PID of the process to terminate.
+
+3. **Filtering:**
+   - Press `u` to filter processes by a specific user. You'll be prompted to enter the username.
+   - Press `1` (the number one) to display only the current process (the `top` process itself).
+
+4. **Refreshing:**
+   - Press `s` to change the update interval (refresh rate) of `top`. You can specify the time in seconds.
+
+5. **Quitting:**
+   - Press `q` to quit `top`.
+
+These interactive commands make it easy to monitor and manage running processes, change their priorities, and identify resource-intensive applications. It's a valuable tool for system administrators and users to keep their systems running smoothly.
+
+![Screenshot from 2023-10-16 22-51-09](https://github.com/Ankit6989/Linux/assets/114300894/1676260f-c64a-49a0-9941-1231bda4c68d)
+
+Many of the interactive keys in `top` are toggles, allowing you to switch between different views or sorting orders. As you've mentioned, there are alternatives to `top` that offer prettier displays and additional capabilities. Here are a few popular alternatives:
+
+1. **`atop`:** Provides more detailed information and historical data about system performance. It's an advanced alternative to `top` and is helpful for analyzing system resource usage over time.
+
+2. **`btop`:** A resource monitor that offers a visually appealing, colorful display of system information. It's known for its aesthetics and user-friendly interface.
+
+3. **`htop`:** A widely-used and feature-rich alternative to `top`. It provides real-time system statistics, customizable color schemes, and the ability to scroll horizontally to see command lines in full.
+
+Each of these programs has its own set of features and fans, so users can choose the one that best suits their needs and preferences. The screenshot you mentioned, which shows all four programs operating simultaneously, gives users an idea of the different information and display styles they offer.
+
+![image](https://github.com/Ankit6989/Linux/assets/114300894/f6f0af74-063b-4c95-8d0d-3e794d5b5ebe)
 
 
+## Starting Process in the Future:
+### SCheduling Future Processes Using at:
 
+**Basic explanation:**
+![Screenshot from 2023-10-16 23-11-26](https://github.com/Ankit6989/Linux/assets/114300894/9eeb73e2-e429-4340-9dc1-45752af6d463)
+![Screenshot from 2023-10-16 23-11-51](https://github.com/Ankit6989/Linux/assets/114300894/68bb6111-d3de-4909-89ea-bcd39a340417)
 
+Using the `at` utility program is a great way to schedule tasks to run at a specific time in the future, even if you won't be present at the machine when the task is executed. Here's how you can use the `at` command to schedule a task:
 
+1. Open your terminal or command prompt.
 
+2. Use the `at` command followed by the time you want the task to run. For example, to schedule a task to run at 3:00 PM, you would enter:
 
+   ```
+   at 3:00 PM
+   ```
 
+3. After entering the `at` command, you'll see a new prompt where you can type the command you want to run at the specified time. For example:
 
+   ```
+   touch /path/to/your/file.txt
+   ```
 
+   This command will create a new file at the specified location.
 
+4. Press `Ctrl+D` to save and exit the `at` prompt.
 
+The task is now scheduled to run at the specified time, even if you're not logged in or present at the machine. You can use the `atq` command to view a list of pending `at` jobs, and `atrm` followed by the job number to remove a scheduled task if needed.
 
+Please note that the availability and behavior of the `at` command may vary depending on your operating system.
+
+![image](https://github.com/Ankit6989/Linux/assets/114300894/8427c9fb-67e2-4f1b-8342-d815ad5ff30a)
+![Screenshot from 2023-10-17 02-14-23](https://github.com/Ankit6989/Linux/assets/114300894/6d50f9fc-db77-436e-8eaf-417c72a4dc5a)
+![Screenshot from 2023-10-17 02-15-09](https://github.com/Ankit6989/Linux/assets/114300894/724da329-79d8-4fbe-9692-81560aae6721)
+![Screenshot from 2023-10-17 02-20-45](https://github.com/Ankit6989/Linux/assets/114300894/3d49aea9-cf85-4907-a649-248a5e05489b)
+![Screenshot from 2023-10-17 02-22-04](https://github.com/Ankit6989/Linux/assets/114300894/241477da-a79c-4a33-96fc-38567ba47f29)
+![Screenshot from 2023-10-17 02-22-42](https://github.com/Ankit6989/Linux/assets/114300894/05a127c5-aba7-410e-badd-08424c39b2bb)
+![Screenshot from 2023-10-17 02-23-31](https://github.com/Ankit6989/Linux/assets/114300894/ddbdb0e6-9ad1-4fd1-b23b-da61766076c7)
+![Screenshot from 2023-10-17 02-25-10](https://github.com/Ankit6989/Linux/assets/114300894/06e82022-6e39-4f3d-9c49-45717ef77c63)
+
+### cron:
+
+**Basic Explanation:**
+![Screenshot from 2023-10-17 02-31-42](https://github.com/Ankit6989/Linux/assets/114300894/94c96c06-db1e-474a-bffc-63b7ae8acada)
+![Screenshot from 2023-10-17 02-32-05](https://github.com/Ankit6989/Linux/assets/114300894/b4238ae1-555f-4f39-ac32-8f33d960b897)
+![Screenshot from 2023-10-17 02-32-26](https://github.com/Ankit6989/Linux/assets/114300894/9eec4ac6-3c9c-4967-af3c-709053b89f1e)
+![Screenshot from 2023-10-17 02-32-50](https://github.com/Ankit6989/Linux/assets/114300894/adca85b8-f844-47bc-b4de-598c4c7f1b0a)
+![Screenshot from 2023-10-17 02-34-16](https://github.com/Ankit6989/Linux/assets/114300894/4971fff2-53d2-4be3-aa57-8c4f2c0c39f0)
+
+***Detailed Explaination:*** ``https://www.youtube.com/watch?v=5IdgchTjQwY``
+
+Cron is a powerful time-based scheduling utility used for automating tasks on Unix-like operating systems. It is driven by a configuration file, often found at `/etc/crontab`, which contains scheduled tasks to be executed. Here's a breakdown of a typical cron job entry:
+
+1. Minute (0-59)
+2. Hour (0-23)
+3. Day of the Month (1-31)
+4. Month (1-12 or names like "Jan", "Feb")
+5. Day of the Week (0-6 or names like "Sun", "Mon")
+6. Command to be executed
+
+For example, a cron job entry like this:
+
+```shell
+30 3 * * * /path/to/your/script.sh
+```
+
+This will run the script located at `/path/to/your/script.sh` at 3:30 AM every day.
+
+You can use the `crontab -e` command to edit your own crontab file, and each line in the file represents a job to be executed. Cron allows you to automate various tasks at specific times, making it a powerful tool for system administrators and users.
+
+![Screenshot from 2023-10-17 02-27-55](https://github.com/Ankit6989/Linux/assets/114300894/660a0eb3-8175-4843-8b52-862c60a8cec9)
+
+### anacron:
+
+Anacron is a newer scheduling utility used in modern Linux distributions. Unlike traditional cron, anacron is designed to ensure that scheduled jobs are executed even if the system has been powered off. Here's how it works:
+
+1. **Configuration File**: Anacron is configured via the `/etc/anacrontab` file. This file defines the scheduled jobs, including their frequency, commands, and the time delays to run these jobs.
+
+2. **Daily, Weekly, Monthly Jobs**: Anacron makes use of the cron infrastructure for daily, weekly, and monthly jobs. It schedules these jobs using traditional cron syntax but ensures they run even when the system has been powered off.
+
+3. **Time Delays**: Anacron adds time delays to job execution. This means that when the system is up and running, anacron checks if any scheduled jobs have been missed due to the system being offline. It then runs these jobs with the necessary delays.
+
+4. **Staggered Execution**: Anacron avoids running all jobs at once when the system comes back online. It ensures that job execution is staggered and controlled to prevent overloading the system.
+
+Overall, anacron is a useful tool for ensuring that periodic tasks and maintenance jobs are executed, even on systems that may not be running continuously. It's especially valuable for machines that are frequently turned off or experience unpredictable uptime.
+
+### sleep:
+
+The `sleep` command is used to suspend the execution of a script or command for a specified period of time. Here's the basic syntax for using `sleep`:
+
+```
+sleep [NUMBER][SUFFIX]...
+```
+
+- `NUMBER` specifies the duration of the sleep.
+- `SUFFIX` indicates the time unit (optional), which can be:
+  - `s` for seconds (default)
+  - `m` for minutes
+  - `h` for hours
+  - `d` for days
+
+For example, to make a script pause for 5 seconds, you can use:
+
+```bash
+sleep 5
+```
+
+If you want to sleep for 2 minutes, you can use:
+
+```bash
+sleep 2m
+```
+
+This is useful for adding delays between commands, scheduling tasks, or implementing time-related logic in shell scripts.
+
+![Screenshot from 2023-10-17 02-46-10](https://github.com/Ankit6989/Linux/assets/114300894/3d7f75e0-9536-4152-862c-9aceb9a73b88)
+
+# File Operations:
+## FileSystems:
+### Introduction to Filesystems:
+
+The concept of "Everything is a file" in Linux and UNIX-like operating systems means that interaction with various resources, whether they are regular data files, devices like sound cards, or other system components, can be done through standard Input/Output (I/O) operations, just like you would with regular files. This simplifies the way you work with different resources. Here are some key points related to this concept:
+
+1. **Filesystem Hierarchy**: The filesystem in Linux is structured like a tree, where the root directory is at the top, usually represented by `/`. The root directory is the starting point of the hierarchical filesystem, and all other directories and files are organized beneath it.
+
+2. **Path Names**: File and directory names are represented as path names, which consist of directory names separated by forward slashes. For example, `/usr/bin/emacs` represents the full path to an executable file named "emacs."
+
+3. **Root Directory vs. Root User**: The root directory (the top of the filesystem hierarchy) is not the same as the root user (the superuser with administrative privileges).
+
+4. **Disk Partitions**: The storage devices on a system can be divided into partitions, each of which can contain its own filesystem. For example, you might have separate partitions for the root filesystem and user data. Each partition is mounted to a specific directory in the filesystem hierarchy.
+
+Understanding this "Everything is a file" concept is fundamental to working with Linux systems, as it simplifies the way you interact with resources and devices, whether they are physical files or hardware components. It also emphasizes the importance of the filesystem hierarchy in organizing and managing these resources.
+
+### Filesystem Varieties:
+
+Linux supports a wide variety of native filesystem types, both those developed specifically for Linux and implementations of filesystems used on other operating systems. Some commonly used Linux-native filesystems include:
+
+1. **ext3**: An older, widely used filesystem known for its reliability.
+
+2. **ext4**: A more recent version of the ext filesystem with improvements in performance and scalability.
+
+3. **squashfs**: A read-only compressed filesystem often used for creating compressed file archives.
+
+4. **btrfs**: A modern and feature-rich filesystem known for its scalability, snapshot support, and self-healing capabilities.
+
+Additionally, Linux provides support for filesystems from other operating systems, such as:
+
+5. **Windows**: Support for Windows filesystems, including NTFS, FAT, exFAT, and more.
+
+6. **SGI**: Support for the XFS filesystem developed by Silicon Graphics, Inc.
+
+7. **IBM**: Support for the JFS filesystem developed by IBM.
+
+8. **MacOS**: Support for Apple's HFS and HFS+ filesystems.
+
+9. **Legacy filesystems**: Support for older filesystems like FAT.
+
+Linux users often choose filesystems based on their specific needs and the characteristics of the data they are managing, such as file size, modification frequency, hardware constraints, and access speed requirements. Some advanced filesystems, like ext4, xfs, btrfs, and jfs, offer journaling features, high performance, and robustness, making them suitable for various use cases.
+
+In addition to local filesystems, Linux supports network or distributed filesystems, allowing all or part of the filesystem to reside on external machines. NFS (Network File System) is a common example, and there are others like Ceph, Lustre, and OpenAFS used for specific purposes in networked environments. These filesystems facilitate sharing and accessing files across multiple machines on a network.
+
+### Linux Partitions:
+
+In a Linux system, each filesystem is typically associated with a disk partition. Disk partitions are used to organize and separate different types of data based on their kind and use. This partitioning scheme helps maintain data isolation, manage disk space effectively, and enhance system reliability and security. Here are some common partitions and their purposes:
+
+1. **Root Partition (/)**: This partition contains the core operating system files, configuration data, and essential system programs. It is often mounted as read-only to prevent unauthorized modifications.
+
+2. **/boot Partition**: The /boot partition holds the kernel and bootloader files required for system booting. Separating /boot from the root partition can help recover the system in case of issues.
+
+3. **Swap Partition**: Swap partitions provide virtual memory and help the system manage memory resources efficiently. They are used when the physical RAM is exhausted.
+
+4. **/home Partition**: The /home partition stores user data, including user profiles, documents, and personal files. Separating /home allows for easier backup and recovery.
+
+5. **/tmp Partition**: Temporary files created during system operation are stored in the /tmp partition. Isolating /tmp helps prevent it from consuming all available disk space.
+
+6. **/var Partition**: The /var partition contains variable data like logs, spool files, and application-specific data. Separating /var can prevent log files from filling up the root partition.
+
+7. **Data Partitions**: Additional partitions may be created for specific data storage needs, such as multimedia files, databases, or application data.
+
+By isolating data types and their associated partitions, Linux systems gain several advantages. For instance:
+
+- Isolation by partition type ensures that when one partition is full, the rest of the system can continue to operate normally.
+- It makes backup and restoration processes more manageable, as specific partitions can be targeted.
+- Data corruption or security breaches may be limited to a smaller area of the system, reducing the impact.
+
+Using partitioning tools like GParted, you can manage and customize your disk partitions according to your specific requirements. This flexibility allows you to create a partition layout that best suits your needs, such as the example of a laptop system with multiple operating systems as shown in the picture.
+
+![image](https://github.com/Ankit6989/Linux/assets/114300894/f4a1c136-1c97-465b-a5d0-1e3bea5a67f8)
+
+### Mount Points:
+
+Before you can start using a filesystem, you need to mount it on the filesystem tree at a mount point. This is simply a directory (which may or may not be empty) where the filesystem is to be grafted on. Sometimes, you may need to create the directory if it does not already exist.
+
+![Screenshot from 2023-10-17 03-08-23](https://github.com/Ankit6989/Linux/assets/114300894/46cc2920-d4a8-4b89-bbcd-514b7b9297b2)
+
+WARNING: If you mount a filesystem on a non-empty directory, the former contents of that directory are covered-up and not accessible until the filesystem is unmounted. Thus, mount points are usually empty directories.
+
+### Mounting and Unmounting:
 
 
 
