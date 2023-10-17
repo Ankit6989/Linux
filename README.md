@@ -1601,6 +1601,8 @@ WARNING: If you mount a filesystem on a non-empty directory, the former contents
 
 ### Mounting and Unmounting:
 
+- **mounting:** allows for logical access to data. 
+
 The `mount` command in Linux is used to attach a filesystem, which can be either a local filesystem on the computer or a network-based filesystem, into the existing directory structure. The fundamental arguments for the `mount` command are the device node (the source) and the mount point (the destination). Here's an example:
 
 To mount a filesystem from the device `/dev/sda5` into the directory `/home`, you would use the following command:
@@ -1629,20 +1631,82 @@ In the output of `df -Th`, you might notice entries of type `tmpfs`. These entri
 
 ### NFS and Network Filesystems:
 
+![Screenshot from 2023-10-17 20-25-37](https://github.com/Ankit6989/Linux/assets/114300894/5c7a07e8-0c78-42cf-acee-4026c661203d)
+ 
 To facilitate sharing data across physical systems, whether they are in the same location or connected via the Internet, network or distributed filesystems come into play. These network filesystems can centralize their data on one machine or distribute it across multiple network nodes. In essence, a network filesystem is like an aggregation of lower-level filesystems of varying types.
 
 One common use case involves system administrators mounting remote users' home directories on a central server. This approach grants users access to the same files and configuration settings across multiple client systems. As a result, users can log in to different computers and still have consistent access to their files and resources.
 
 The most widespread network filesystem is known as NFS (Network Filesystem), with a history dating back to its initial development by Sun Microsystems. Another well-known implementation is CIFS (Common Internet File System), often referred to as SAMBA, which has its origins in Microsoft technologies. In the subsequent discussion, we will focus on NFS as an example of network filesystems.
 
+![Screenshot from 2023-10-17 20-27-36](https://github.com/Ankit6989/Linux/assets/114300894/2935cc1f-263e-4e54-a630-2c35a91c957a)
+![Screenshot from 2023-10-17 20-27-27](https://github.com/Ankit6989/Linux/assets/114300894/f6bf1f55-1cb1-44bd-9303-52e088c23324)
+
 ![Screenshot from 2023-10-17 03-21-30](https://github.com/Ankit6989/Linux/assets/114300894/8449a5b8-5bf5-499d-b44c-2611ae639930)
 
+### NFS on the Server:
 
+To set up NFS on the server machine, the following steps are taken:
 
+1. On the server machine, NFS uses daemons, which are built-in networking and service processes in Linux. You can start the NFS service at the command line using the following command:
 
+```shell
+$ sudo systemctl start nfs
+```
 
+Note: On certain systems, such as RHEL/CentOS and Fedora, the service is named nfs-server instead of nfs.
 
+2. Configuration of NFS exports is managed via the `/etc/exports` file. This file specifies the directories and permissions that a host is willing to share with other systems over NFS. A basic entry in this file might look like this:
 
+```shell
+/projects *.example.com(rw)
+```
+
+This entry permits the directory `/projects` to be mounted using NFS with read and write (rw) permissions, and it can be shared with other hosts in the `example.com` domain. In Linux, every file has three possible permissions: read (r), write (w), and execute (x).
+
+3. After making changes to the `/etc/exports` file, notify Linux about the directories that are available to be remotely mounted using NFS by executing:
+
+```shell
+$ sudo exportfs -av
+```
+
+This command updates the NFS export information.
+
+4. You can also restart the NFS service if necessary, although it's a heavier operation as it halts NFS briefly before restarting it. To restart NFS, use:
+
+```shell
+$ sudo systemctl restart nfs
+```
+
+5. If you want to ensure that the NFS service starts automatically whenever the system boots, use the following command:
+
+```shell
+$ sudo systemctl enable nfs
+```
+
+This command sets up NFS to be enabled on system startup.
+
+These steps allow you to configure and start the NFS service on the server.
+
+### NFS on the Client:
+
+On the client machine, you can set up automatic mounting of the remote filesystem upon system boot by modifying the `/etc/fstab` file. Here's an example of an entry in the client's `/etc/fstab` file:
+
+```shell
+servername:/projects /mnt/nfs/projects nfs defaults 0 0
+```
+
+This entry specifies that the remote filesystem located at `servername:/projects` should be mounted to the local directory `/mnt/nfs/projects` using the NFS protocol. The `defaults` option includes standard mount options. The two `0` values at the end of the line indicate options for dumping and filesystem checks and can usually be set to these values for NFS mounts.
+
+If you wish to mount the remote filesystem without rebooting the system or as a one-time mount, you can use the `mount` command directly:
+
+```shell
+$ sudo mount servername:/projects /mnt/nfs/projects
+```
+
+It's important to note that if you don't modify the `/etc/fstab` file, the remote mount won't be available the next time the system is restarted.
+
+Additionally, you may want to use the `nofail` option in `/etc/fstab` in case the NFS server is not available during system boot. This option prevents the NFS mount from causing boot failures if the server is temporarily offline.
 
 
 
