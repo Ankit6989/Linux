@@ -1119,11 +1119,90 @@ In summary, while Linux provides a "real-time priority" feature that allows for 
 
 ### How to Manage Processes on Linux with nohup, nice, bg, fg, jobs Commands:
 
+Managing processes on Linux can be done using various commands and techniques. Here, I'll explain the usage of several commands for process management: `nohup`, `nice`, `bg`, `fg`, and `jobs`.
+
+1. **nohup**: The `nohup` command stands for "no hang up." It's used to run a command in the background, allowing it to continue running even after you log out of your terminal or close your SSH session.
+
+![Screenshot from 2023-10-26 12-22-18](https://github.com/Ankit6989/Linux/assets/114300894/ad6262eb-027e-4f90-ab73-a81a4a1c1939)
+
+
+   - **Usage**:
+     ```
+     nohup your_command &
+     ```
+
+   - **Example**: Running a script called `my_script.sh` with `nohup`:
+     ```
+     nohup ./my_script.sh &
+     ```
+
+   This will run `my_script.sh` in the background, and its output will be redirected to a file named `nohup.out` in the current directory.
+
+3. **nice**: The `nice` command is used to set or change the priority of a process. It allows you to control how much CPU time a process gets. Lower values are "nicer" to other processes, meaning they get lower priority.
+
+![Screenshot from 2023-10-26 12-19-14](https://github.com/Ankit6989/Linux/assets/114300894/8a3118ee-b6cf-44f1-834b-49e007dc6fb9)
+
+
+   - **Usage**:
+     ```
+     nice -n [nice_value] your_command
+     ```
+
+   - **Example**: Running a CPU-intensive process with a lower priority:
+     ```
+     nice -n 10 ./cpu_intensive_task
+     ```
+     
+   In this example, `cpu_intensive_task` will run with a lower priority, allowing other processes to have a higher priority.
+
+4. **bg**: The `bg` command is used to resume a suspended (stopped) process in the background.
+
+   - **Usage**:
+     ```
+     bg [job_id]
+     ```
+
+   - **Example**: Suppose you have a process stopped with `Ctrl+Z`, you can use `bg` to resume it in the background:
+     ```
+     bg
+     ```
+
+   This will send the most recently stopped process to the background.
+
+5. **fg**: The `fg` command is used to bring a background process to the foreground.
+
+   - **Usage**:
+     ```
+     fg [job_id]
+     ```
+
+   - **Example**: To bring a background process with a specific job ID to the foreground:
+     ```
+     fg %1
+     ```
+
+   This will bring the process with job ID 1 to the foreground.
+
+6. **jobs**: The `jobs` command is used to list the currently running jobs in the current shell session.
+
+   - **Usage**:
+     ```
+     jobs
+     ```
+
+   - **Example**: To list all the jobs running in the current shell session:
+     ```
+     jobs
+     ```
+
+   This will display a list of jobs along with their status and job IDs.
+
+Remember that job IDs are specific to your shell session and may change when you start a new session. The `jobs` command is especially useful when you have multiple background processes running, and you want to keep track of them.
+
+These commands are essential for managing processes effectively on Linux. Whether you need to run processes in the background, adjust their priority, or handle suspended jobs, these commands provide the necessary tools for efficient process management.
+
+**FOR MORE INFORMATION**
 Video Link: ```https://www.youtube.com/watch?v=kmk3_kEiJvk```
-!!!!
-
-
-
 
 
 ## Process Metrics and Process Control:
