@@ -2548,6 +2548,209 @@ vi provides three modes, as described in the table below. It is vital to not los
 
 Both Vi and Emacs are powerful text editors with loyal user bases. The choice between them often comes down to personal preference and specific use cases. Emacs excels when it comes to extensive customizability and a wide range of integrated features, making it a versatile tool for a variety of tasks beyond text editing.
 
+# User Environment:
+## Accounts, Users and Groups:
+### Identifying the current user:
+
+As you know, Linux is a multi-user operating system, meaning more than one user can log on at the same time.
+
+- To identify the current user, type **whoami**.
+- To list the currently logged-on users, type **who**.
+Giving **who** the **-a** option will give more detailed information.
+
+![Screenshot from 2023-11-07 11-20-54](https://github.com/Ankit6989/Linux/assets/114300894/e535dd56-a14c-4a6f-a28b-850ef5c94858)
+
+### User Startup Files:
+
+In Linux, the command shell program (generally bash) uses one or more startup files to configure the user environment. Files in the /etc directory define global settings for all users, while initialization files in the user's home directory can include and/or override the global settings.
+
+ The startup files can do anything the user would like to do in every command shell, such as:
+
+- Customizing the prompt
+- Defining command line shortcuts and aliases
+- Setting the default text editor
+- Setting the path for where to find executable programs
+
+### Order of the Startup Files:
+
+**When you log in to a Linux system, the following files are read and evaluated in this order:**
+1. `/etc/profile`: This is a system-wide configuration file that is read and evaluated for all users during login.
+
+2. `~/.bash_profile`: This file is specific to each user and is located in their home directory (`~`). If it exists, it is read and evaluated. If this file is found, the subsequent files are ignored.
+
+3. `~/.bash_login`: Similar to `~/.bash_profile`, this file is also specific to each user and is evaluated if it exists. If it is found, further files are skipped.
+
+4. `~/.profile`: This is another user-specific file in the home directory, and if it exists, it is read and executed.
+
+**For subsequent shell sessions or terminal windows:**
+- Only `~/.bashrc` is read and evaluated. This file is specific to each user and is located in their home directory.
+
+**Common Usage:**
+- Users often modify `~/.bashrc` because it is executed every time a new command line shell is started or another program is launched from a terminal window.
+- The other files (`~/.bash_profile`, `~/.bash_login`, and `~/.profile`) are typically used for system-wide or user-specific configuration settings that are executed only during the initial login to the system.
+
+**Note:**
+- The presence and usage of these files may vary between different Linux distributions. Some recent distributions may not have `~/.bash_profile` and `~/.bash_login` or may include them simply as a means to source `~/.bashrc` for consistency.
+
+In summary, these files are used to configure and set up your shell environment during login and subsequent shell sessions, and `~/.bashrc` is the most commonly modified one for day-to-day customizations.
+
+![Screenshot from 2023-11-07 11-27-47](https://github.com/Ankit6989/Linux/assets/114300894/1ca3530d-42f5-460e-9dca-85a291f79a96)
+
+### Creating Aliases:
+
+**What are Aliases:**
+- Aliases in Linux are shortcuts or custom commands that you can create to simplify and modify the behavior of existing commands.
+- They are often used to save time, reduce typing, or add default options to commands.
+
+**Creating Aliases:**
+- To create an alias, you use the `alias` command followed by the alias name, an equal sign (`=`), and the command or behavior you want to associate with the alias.
+- You typically define aliases in your `~/.bashrc` file so that they are available in every new command shell session.
+- Here's an example of creating an alias to simplify the `ls` command:
+  ```bash
+  alias ll='ls -al'
+  ```
+  In this example, `ll` becomes an alias for `ls -al`.
+
+**Listing Aliases:**
+- To see a list of currently defined aliases, you can simply type `alias` with no arguments:
+  ```bash
+  alias
+  ```
+  This will display a list of aliases and their associated commands.
+
+**Removing Aliases:**
+- If you want to remove an alias, you can use the `unalias` command followed by the alias name you want to remove. For example:
+  ```bash
+  unalias ll
+  ```
+  This removes the `ll` alias we defined earlier.
+
+**Additional Tips:**
+- It's important to note that there should not be any spaces on either side of the equal sign when defining aliases.
+- If your alias definition contains spaces, it's a good practice to enclose the alias definition in single or double quotes.
+
+![Screenshot from 2023-11-07 11-55-25](https://github.com/Ankit6989/Linux/assets/114300894/60626264-1c2a-43ba-b6f9-57e80734d632)
+
+### Basic of Users and Groups:
+
+**User ID (uid):**
+- Every Linux user is assigned a unique User ID (uid).
+- User IDs are represented as integers.
+- Normal users typically have user IDs starting from 1000 or greater.
+- User IDs are used to uniquely identify and manage users on the system.
+- The mapping of user names to user IDs is stored in the `/etc/passwd` file, which contains entries like `john:x:1002:1002:John Garfield:/home/john:/bin/bash`.
+
+**Groups:**
+- Groups are used to organize users into collections with shared permissions and access rights.
+- They are used for access control, privileges, and security considerations.
+- Groups allow you to grant permissions to multiple users at once, simplifying user management.
+- Group membership is controlled through the `/etc/group` file, which lists groups and their members.
+- When a user logs in, their primary group membership is set, and all members of that group share the same level of access and privilege.
+- Permissions on files and directories can be modified at the group level, allowing multiple users to collaborate effectively.
+
+**Group ID (gid):**
+- Users can belong to one or more groups, in addition to their primary group.
+- Each group has a unique Group ID (gid), represented as an integer.
+- By default, a user's primary group ID is the same as their user ID (uid).
+- The mapping of group names to group IDs is stored in the `/etc/group` file, which contains entries like `john:x:1002`.
+
+In summary, user IDs and group IDs are integral to managing user access and permissions in Linux. User IDs uniquely identify users, while groups provide a way to organize and control permissions for multiple users. The `/etc/passwd` file contains user-related information, and the `/etc/group` file stores group-related information, including user and group mappings.
+
+![Screenshot from 2023-11-07 11-56-34](https://github.com/Ankit6989/Linux/assets/114300894/ad0afd76-6bd0-4351-beb6-4a1752bdf4cc)
+![Screenshot from 2023-11-07 11-57-20](https://github.com/Ankit6989/Linux/assets/114300894/bd0f8f61-b5c5-43f3-a2ca-5300f1d18f11)
+
+### Adding and Removing Users:
+
+**Adding a User:**
+- To add a new user in Linux, you typically use the `useradd` command.
+- The basic syntax to add a user is: `sudo useradd username`.
+- For example, to add a user named "bjmoose," you can use: `sudo useradd bjmoose`.
+- By default, this command creates a user with a home directory at `/home/username`, sets the default shell to `/bin/bash`, and adds an entry to the `/etc/passwd` file.
+
+**Removing a User:**
+- To remove an existing user, you can use the `userdel` command.
+- The basic syntax to remove a user is: `sudo userdel username`.
+- For example, to remove the user "bjmoose," you can use: `sudo userdel bjmoose`.
+- By default, this will remove the user's entry from the `/etc/passwd` file, but it will leave the user's home directory intact.
+
+**Removing a User with Home Directory:**
+- If you want to remove a user and their home directory, you can use the `-r` option with the `userdel` command.
+- For example, to remove the user "bjmoose" and their home directory, you can use: `sudo userdel -r bjmoose`.
+
+**Checking User Information:**
+- You can use the `id` command to check user information.
+- Typing `id` without any arguments will display information about the current user, including their User ID (uid), primary group ID (gid), and additional group memberships.
+- For example:
+  ```bash
+  $ id
+  uid=1002(bjmoose) gid=1002(bjmoose) groups=106(fuse),1002(bjmoose)
+  ```
+- If you provide the name of another user as an argument, `id` will report information about that user.
+
+These commands are commonly used for user management and system administration in Linux. It's important to note that adding and removing users typically requires root (or superuser) privileges, as only the root user can create or delete user accounts.
+
+FOR MORE INFO: ```https://www.youtube.com/watch?v=vLuFkesBPcM```
+
+### The root Account:
+
+The root account is very powerful and has full access to the system. Other operating systems often call this the administrator account; in Linux, it is often called the superuser account. You must be extremely cautious before granting full root access to a user; it is rarely, if ever, justified. External attacks often consist of tricks used to elevate to the root account.
+
+However, you can use sudo to assign more limited privileges to user accounts:
+
+- Only on a temporary basis
+- Only for a specific subset of commands.
+
+### su and sudo:
+
+**su (Switch User):**
+- The `su` command is used to switch or substitute the current user with another user, most commonly the root user.
+- When using `su`, you are required to enter the password of the user you want to switch to.
+- The new shell that is launched when you use `su` inherits the elevated privileges of the user you switch to, typically the root user.
+- Using `su` to become the root user can be risky because it grants full access to system files and commands, potentially leading to unintended changes, system instability, and security breaches.
+- It is generally considered a bad practice to use `su` to become root without a specific need, and it should be used with caution.
+
+**sudo (Superuser Do):**
+- `sudo` is a more controlled and secure way to grant elevated privileges in Linux.
+- By default, `sudo` must be enabled on a per-user basis, which means individual users need to be explicitly granted permission to run commands with superuser privileges.
+- Some Linux distributions, like Ubuntu, enable `sudo` by default for at least one main user during installation, or they provide it as an installation option.
+- With `sudo`, users can execute specific commands with elevated privileges by prefixing the command with `sudo`, and they are prompted for their own user password, not the root password.
+- `sudo` allows for fine-grained control over which users can perform what actions with superuser privileges, enhancing security and minimizing risks.
+
+### Elevating to root Account:
+
+You've provided a concise summary of how to temporarily become the superuser and execute commands with root privileges using `su` and `sudo` in Linux. Here are the key points:
+
+**Using `su` to Become the Superuser:**
+- To temporarily become the superuser (root), you can use the `su` command.
+- When you type `su`, you will be prompted to enter the root password.
+- After entering the correct password, you will be running as the root user and can execute a series of commands with superuser privileges.
+- To return to your normal unprivileged user state, you can simply exit the root shell.
+
+**Using `sudo` to Execute a Single Command with Root Privileges:**
+- To execute just one command with root privileges without becoming the superuser, you can use `sudo`.
+- The syntax is: `sudo <command>`. For example, `sudo apt-get update`.
+- When you use `sudo` to run a command, you will be prompted for your own user password, not the root password.
+- After the command is executed, you will return to your normal unprivileged user state.
+
+**Configuration Files for `sudo`:**
+- The configuration files for `sudo` are stored in the `/etc/sudoers` file and the `/etc/sudoers.d/` directory.
+- By default, the `/etc/sudoers.d/` directory is empty, but it can be used to add custom sudo configurations.
+- These configuration files specify who is allowed to use `sudo`, what commands they can run, and under what conditions they can use it.
+
+## Environment Variables:
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
