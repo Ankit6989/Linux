@@ -2739,23 +2739,310 @@ You've provided a concise summary of how to temporarily become the superuser and
 
 ## Environment Variables:
 
+**Environment Variables:**
+- Environment variables are quantities with specific values that can be utilized by the command shell (e.g., bash) and other utilities and applications in the Linux system.
+- Some environment variables have preset values provided by the system, and these values can usually be overridden or modified.
+- Users can also set environment variables directly, either at the command line or within startup scripts and other configurations.
+
+**Character Strings with Information:**
+- Environment variables are essentially character strings that contain information. This information can be used by one or more applications running in the system.
+
+**Viewing Environment Variables:**
+- You can view the values of currently set environment variables in several ways:
+  1. `set`: Typing `set` in the command line will display a list of all environment variables. Depending on your system's state, this command may produce more output than other methods.
+  2. `env`: The `env` command provides a list of environment variables and their values. It typically shows a more concise list compared to `set`.
+  3. `export`: Using `export` will display a list of environment variables, similar to `env`. It's often used to define or modify environment variables, but it can also be used for viewing.
+
+Environment variables are crucial for configuring the behavior of various programs and for providing system-wide or user-specific settings. They play a significant role in customizing and controlling the environment in a Linux system.
+
+### Setting Environment Variables:
+
+By default, variables created within a script are only available to the current shell; child processes (sub-shells) will not have access to values that have been set or modified. Allowing child processes to see the values requires use of the export command.
+
+![Screenshot from 2023-11-09 11-19-28](https://github.com/Ankit6989/Linux/assets/114300894/47d7a370-7220-4a9c-80b6-d85e052b58b7)
 
 
+You can also set environment variables to be fed as a one shot to a command as in:
+
+$ SDIRS="s_0*" KROOT=/lib/modules/$(uname -r)/build make modules_install
+
+which feeds the values of the SDIRS and KROOT environment variables to the command make modules_install.
+
+### The Home Variable:
+
+HOME is an environment variable that represents the home (or login) directory of the user. cd without arguments will change the current working directory to the value of HOME. Note the tilde character (~) is often used as an abbreviation for $HOME. Thus, cd $HOME and cd ~ are completely equivalent statements.
+
+![Screenshot from 2023-11-09 11-23-40](https://github.com/Ankit6989/Linux/assets/114300894/fe43c7e5-5d37-4c2f-b0ce-e5626ed7463c)
+
+![Screenshot from 2023-11-09 11-24-32](https://github.com/Ankit6989/Linux/assets/114300894/41f5c204-5785-4628-87d7-8c751b02c178)
+
+### The PATH Variable:
+
+![Screenshot from 2023-11-09 11-27-12](https://github.com/Ankit6989/Linux/assets/114300894/00d959bd-ae86-44cc-b530-a354628ad71d)
+
+### The Shell Variable:
+
+The environment variable SHELL points to the user's default command shell (the program that is handling whatever you type in a command window, usually bash) and contains the full pathname to the shell:
+
+```
+$ echo $SHELL
+/bin/bash
+$
+```
+
+### The PS1 Variable and the Command Line Prompt:
+
+**PS1 for Customizing the Prompt:**
+- `PS1` is the primary prompt variable in Linux that controls the appearance of your command line prompt.
+- You can customize your prompt to display the information you want, such as the user name, host name, current working directory, history number, date, and more.
+- To include special characters in `PS1`, they must be surrounded by single quotes. For example:
+  ```bash
+  $ export PS1='\u@\h:\w$ '
+  ```
+  This sets the prompt to display the user, host, and current directory.
+
+**Reverting Prompt Changes:**
+- To revert prompt changes, you can reset `PS1` to its previous value. It's a good practice to save the old prompt in a variable (e.g., `OLD_PS1`) before making changes and then restore it later:
+  ```bash
+  $ OLD_PS1=$PS1  # Save the old prompt
+  # Make changes to the prompt
+  $ PS1=$OLD_PS1   # Restore the old prompt
+  ```
+
+**Advanced Customizations:**
+- You can get creative and customize your prompt further by adding colors, special characters, or even sounds to make it more visually appealing or functional.
+
+Customizing the prompt using `PS1` allows Linux users to tailor their command line interface to their preferences and needs, making it more efficient and personalized.
+
+## Recalling Previous Commands:
+
+bash keeps track of previously entered commands and statements in a history buffer. You can recall previously used commands simply by using the Up and Down cursor keys. To view the list of previously executed commands, you can just type history at the command line.
+
+The list of commands is displayed with the most recent command appearing last in the list. This information is stored in ~/.bash_history. If you have multiple terminals open, the commands typed in each session are not saved until the session terminates.
+
+![Screenshot from 2023-11-09 11-38-38](https://github.com/Ankit6989/Linux/assets/114300894/d47ebbcb-f668-4065-8290-3bcbc733e90a)
+
+### Using History Environment Variables:
+
+1. **HISTFILE:** This variable specifies the location of the history file where command history is saved. By default, it is usually set to `~/.bash_history` in the user's home directory.
+
+2. **HISTFILESIZE:** HISTFILESIZE sets the maximum number of lines that can be stored in the history file. The default value is typically 500 lines, but you can customize it to your preference.
+
+3. **HISTSIZE:** HISTSIZE determines the maximum number of commands that are kept in the history list, which is the number of commands available for recall using the Up Arrow key. The default value is often set to 500.
+
+4. **HISTCONTROL:** This variable controls how commands are saved in the history file. It can include options like `ignoredups`, `ignoreboth`, `erasedups`, and more to customize history behavior.
+
+5. **HISTIGNORE:** HISTIGNORE allows you to specify which command lines should be excluded or unsaved in the history. You can define patterns for commands you want to ignore.
+
+You can configure these environment variables to tailor the behavior and storage of command history according to your preferences. For more detailed information and usage examples, you can refer to the `man bash` manual in your Linux terminal.
+
+![image](https://github.com/Ankit6989/Linux/assets/114300894/3f894062-7832-4c9d-b23e-1e017bed07df)
+
+### Keyboard Shortcuts:
+
+You can use keyboard shortcuts to perform different tasks quickly. The table lists some of these keyboard shortcuts and their uses. Note the case of the "hotkey" does not matter, e.g. doing CTRL-a is the same as doing CTRL-A .
+
+![Screenshot from 2023-11-09 11-44-05](https://github.com/Ankit6989/Linux/assets/114300894/e5b4a19d-1d36-494b-bf80-327bd0614eb3)
+
+### File Ownership:
+
+In Linux and other UNIX-based operating systems, every file is associated with a user who is the owner. Every file is also associated with a group (a subset of all users) which has an interest in the file and certain rights, or permissions: read, write, and execute.
+
+The following utility programs involve user and group ownership and permission setting: 
+
+![Screenshot from 2023-11-09 11-48-20](https://github.com/Ankit6989/Linux/assets/114300894/4abeac26-fd1a-45a4-82a3-130ad34394f2)
+
+### File Permission Modes and chmod:
+
+**File Permission Types:**
+- Files in Linux have three types of permissions: read (r), write (w), and execute (x).
+- These permissions are typically represented as "rwx" and are associated with three groups: user/owner (u), group (g), and others (o).
+
+**Setting Permissions with `chmod`:**
+- The `chmod` command is used to modify file permissions.
+- You can specify which permissions to add or remove using a combination of "u" (user/owner), "g" (group), "o" (others), and "+x" (to add execute permission) or "-w" (to remove write permission).
+
+**Shorthand Numeric Representation:**
+- A simpler shorthand for setting permissions involves using a single-digit number, which is the sum of:
+  - 4 for read permission.
+  - 2 for write permission.
+  - 1 for execute permission.
+- For example, "7" means read/write/execute, "6" means read/write, and "5" means read/execute.
+
+**Example of `chmod` with Numeric Representation:**
+- To set permissions using the numeric representation, you provide three digits for each group (u, g, o) in the order of "rwx." For instance, to set read/write/execute permissions for the user and read/execute permissions for the group and others, you can use:
+  ```bash
+  $ chmod 755 somefile
+  ```
+
+This allows you to easily modify file permissions with a single command and understand the permissions at a glance. In the example, "chmod 755 somefile" sets the permissions as "rwxr-xr-x" for the user, group, and others.
 
 
+# Manipulating Texts:
+## cat and echo:
+### Command Line Tools for Manipulating Text Files:
 
+**File and Text Manipulation:**
+- Browsing through and extracting data from text files is a common task in Linux, relevant to users in various roles.
+- Command line operations are often preferred for their efficiency and suitability for automating repetitive tasks.
 
+**Efficiency and Automation:**
+- The command line allows users to perform file and text manipulation tasks more efficiently than using a graphical user interface (GUI).
+- It is well-suited for automating frequently executed tasks, which can save time and reduce human error.
 
+**Scripting for Customization:**
+- Experienced system administrators often write custom scripts to accomplish repetitive tasks, tailored to the specific requirements of their environment.
+- These scripts can automate complex operations and improve system administration efficiency.
 
+In this context, it's essential to learn and understand the various command line utilities and tools available in Linux for file and text manipulation. These tools offer the flexibility and power needed to effectively work with data and files in a Linux environment. Later on, custom scripting can further enhance and automate these processes, increasing productivity and consistency in system administration and development tasks.
 
+![image](https://github.com/Ankit6989/Linux/assets/114300894/87930714-d740-4ca8-9aab-b5bb63e96a5f)
 
+### cat:
 
+You've provided a clear explanation of the `cat` and `tac` commands in Linux for working with files. Here's a summary of the key points:
 
+**cat (Concatenate):**
+- The `cat` command is commonly used to read and print files' contents in the Linux command line.
+- To view the contents of a file, you use the command: `cat <filename>`.
+  - For example: `cat readme.txt` will display the contents of the `readme.txt` file in the terminal.
+- The primary purpose of `cat` is to concatenate (combine) multiple files together.
+- You can use `cat` to perform various actions, including combining files or displaying their contents.
 
+**tac (cat Spelled Backwards):**
+- The `tac` command is used to print the lines of a file in reverse order while keeping the content of each line unchanged.
+- The syntax of `tac` is identical to that of `cat`.
+  - To reverse the lines in a file: `tac file`
+  - To reverse the lines in multiple files and combine them into a new file: `tac file1 file2 > newfile`
 
+`cat` and `tac` are versatile and handy commands for file manipulation in Linux, and they can be used for various tasks such as viewing, concatenating, and reversing the content of files.
 
+![Screenshot from 2023-11-09 12-50-42](https://github.com/Ankit6989/Linux/assets/114300894/f1a64b34-a685-44db-a582-236beea0ada1)
 
+### Using cat Interactively:
 
+**Reading from Standard Input with `cat`:**
+- If no files are specified, `cat` can read from standard input, which is often the terminal window.
+- This feature allows users to create or append to files directly from the command line.
 
+**Creating a New File:**
+- To create a new file using `cat`, you can use the `>` operator followed by the filename.
+  - Example: `cat > newfile.txt`
+- This command creates a new file and waits for the user to input text. Pressing `CTRL-D` at the beginning of the next line saves and exits the editing.
 
+**Appending to an Existing File:**
+- To append content to an existing file, you can use the `>>` operator.
+  - Example: `cat >> existingfile.txt`
+- This command appends text or content to the specified file.
+
+**Creating a File with Here Document:**
+- Another way to create a file is using a here document with `cat`.
+  - Example: `cat > newfile.txt << EOF`
+- This method allows users to type the required input, and to exit, they can enter `EOF` at the beginning of a line.
+- The word used (e.g., `EOF` or `STOP`) is case-sensitive.
+
+These techniques provide efficient ways to create and manipulate files directly from the command line, which is particularly useful for quick edits, simple file creation, and appending content.
+
+### echo:
+
+echo simply displays (echoes) text. It is used simply, as in:
+
+$ echo string
+
+echo can be used to display a string on standard output (i.e. the terminal) or to place in a new file (using the > operator) or append to an already existing file (using the >> operator).
+
+The –e option, along with the following switches, is used to enable special character sequences, such as the newline character or horizontal tab:
+
+\n represents newline
+\t represents horizontal tab.
+echo is particularly useful for viewing the values of environment variables (built-in shell variables). For example, echo $USERNAME will print the name of the user who has logged into the current terminal.
+
+The following table lists echo commands and their usage.
+
+![Screenshot from 2023-11-09 12-55-12](https://github.com/Ankit6989/Linux/assets/114300894/77a1485b-8031-48f9-88a5-3f8acf0b0599)
+
+## Working with Large and Compressed Files:
+### Working with Large Files:
+
+**Working with Large Files:**
+- System administrators often need to deal with large configuration files, text files, documentation files, and log files.
+- Large log files, for example, might contain details of system warnings and errors, and navigating through such files efficiently is crucial.
+
+**Using `less` for Viewing Large Files:**
+- `less` is a command-line utility that allows users to view the contents of large files one page at a time.
+- Unlike some text editors, `less` does not attempt to read the entire file into memory before starting, making it more memory-efficient for large files.
+- Viewing a file with `less` can be done with either of the following commands:
+  ```bash
+  $ less somefile
+  $ cat somefile | less
+  ```
+- This approach enables scrolling up and down through the file without the need to load the entire file into memory at once.
+
+**Man Pages and `less`:**
+- By default, `man` pages are sent through the `less` command for efficient viewing.
+- `less` is a more capable alternative to the older `more` utility, providing enhanced functionality for navigating and viewing file contents.
+
+`less` indeed proves to be a valuable tool for system administrators when dealing with large files, offering a memory-efficient way to navigate through content page by page, ensuring faster and more effective file inspection compared to loading the entire file into memory.
+
+### head:
+
+head reads the first few lines of each named file (10 by default) and displays it on standard output. You can give a different number of lines in an option.
+
+For example, if you want to print the first 5 lines from /etc/default/grub, use the following command:
+```
+$ head –n 5 /etc/default/grub
+```
+You can also just say:
+```
+head -5 /etc/default/grub
+```
+![Screenshot from 2023-11-09 13-16-19](https://github.com/Ankit6989/Linux/assets/114300894/3654858c-cf3f-4e3e-a78b-409eac2d03a6)
+
+### tail:
+
+**Tail Command Overview:**
+- `tail` is a command-line utility used to print the last few lines of a file and display them on standard output.
+- By default, `tail` displays the last 10 lines of a file, but you can specify a different number of lines using the `-n` option.
+
+**Viewing Specific Number of Lines:**
+- To display a specific number of lines (e.g., 15) from the end of a file:
+  ```bash
+  $ tail -n 15 somefile.log
+  ```
+  or
+  ```bash
+  $ tail -15 somefile.log
+  ```
+
+**Monitoring Growing Log Files:**
+- The `-f` option allows you to continuously monitor a growing log file, displaying new lines as they appear:
+  ```bash
+  $ tail -f somefile.log
+  ```
+- This is particularly useful for troubleshooting and monitoring current activity reported and recorded in log files.
+
+`tail` is indeed a handy tool for system administrators and users alike, providing an efficient way to quickly check the most recent lines in log files and continuously monitor ongoing activities in real-time.
+
+![image](https://github.com/Ankit6989/Linux/assets/114300894/e549ae17-8886-4a72-8682-e4cbc5d072fe)
+
+### Viewing Compressed Files:
+
+**z Family Commands:**
+- **zcat compressed-file.txt.gz:**
+  - Description: To view the contents of a compressed file.
+- **zless somefile.gz or zmore somefile.gz:**
+  - Description: To page through the contents of a compressed file.
+- **zgrep -i less somefile.gz:**
+  - Description: To search for a pattern inside a compressed file, with case-insensitive matching.
+- **zdiff file1.txt.gz file2.txt.gz:**
+  - Description: To compare the contents of two compressed files.
+
+**Notes:**
+- Running `zless` on an uncompressed file will still work and ignore the decompression stage.
+- Equivalent utility programs exist for other compression methods, such as `xz` and `bzip2`. Examples include `xzcat`, `xzless`, `xzdiff` for `xz`, and `bzcat`, `bzless`, `bzdiff` for `bzip2`.
+
+These commands provide convenient ways to work with compressed files directly, making it easier to view, page through, search, and compare the contents of compressed files without the need for manual decompression. It's a valuable set of tools for handling compressed data efficiently in a Linux environment.
+
+## sed and Awk:
+### Introduction to sed and awk:
 
