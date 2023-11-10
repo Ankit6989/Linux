@@ -3046,3 +3046,94 @@ These commands provide convenient ways to work with compressed files directly, m
 ## sed and Awk:
 ### Introduction to sed and awk:
 
+1. **Purpose of sed and awk:**
+   - `sed` (stream editor) and `awk` are powerful text processing tools in Unix/Linux environments.
+   - They are commonly used for creating, editing, and extracting content from files.
+
+2. **Scripting Languages vs. sed and awk:**
+   - Many Linux users and administrators prefer scripting languages like Python and Perl for writing scripts.
+   - The mentioned utilities (sed and awk) are lighter, using fewer system resources and executing faster.
+
+3. **Advantages of sed and awk:**
+   - Lighter and faster execution, making them suitable for resource-constrained situations.
+   - Particularly useful during system boot when resources may be limited.
+
+4. **Flexibility of Tool Choice:**
+   - Users are encouraged to use the tools they are experienced with, whether sed/awk or comprehensive scripting languages.
+
+5. **Resource Efficiency Considerations:**
+   - Sed and awk are recommended in scenarios where using more complex tools could be resource-intensive, potentially affecting system performance.
+
+6. **Execution Speed:**
+   - Lighter tools like sed and awk are advantageous in situations where execution speed is crucial, such as during system boot.
+
+7. **Applicability during Boot Process:**
+   - Sed and awk may be essential during the boot process when complex tools might not be feasible due to time constraints.
+
+8. **System Resource Usage:**
+   - The simpler tools (sed and awk) are favored for their minimal impact on system resources, ensuring efficient use, especially in critical scenarios.
+
+### sed:
+
+1. **Definition and Origin:**
+   - `sed` is a powerful text processing tool and is one of the oldest and most popular UNIX utilities.
+   - Its name is an abbreviation for "stream editor."
+
+2. **Functionality:**
+   - `sed` is used to modify the contents of a file or input stream.
+   - It can operate by placing the modified contents into a new file or output stream.
+
+3. **Core Operations:**
+   - `sed` can filter text and perform substitutions in data streams.
+
+4. **Working Mechanism:**
+   - Data from an input source/file or stream is taken and moved to a working space.
+   - The entire list of operations or modifications is then applied to the data in the working space.
+   - The final modified contents are moved to the standard output space or stream.
+
+![Screenshot from 2023-11-10 12-07-08](https://github.com/Ankit6989/Linux/assets/114300894/785f0eb7-7bf6-4f29-ac91-0f6e457e6db9)
+
+### sed Command Syntax:
+### sed Basic Operations:
+
+### awk:
+### awk Basic Operations:
+
+## File Manipulation Utilities:
+
+1. **sort:**
+   - **Purpose:** Used for sorting lines of text files.
+   - **Functionality:** Arranges lines alphabetically or numerically based on specified criteria.
+   - **Example:** `sort filename.txt` sorts the lines in `filename.txt` alphabetically.
+
+2. **uniq:**
+   - **Purpose:** Filters adjacent matching lines from a sorted text file.
+   - **Functionality:** Removes duplicate consecutive lines.
+   - **Example:** `sort filename.txt | uniq` sorts and removes duplicate lines from `filename.txt`.
+
+3. **paste:**
+   - **Purpose:** Merges lines from multiple files side by side.
+   - **Functionality:** Combines corresponding lines of different files horizontally.
+   - **Example:** `paste file1.txt file2.txt` combines lines from `file1.txt` and `file2.txt` side by side.
+
+4. **join:**
+   - **Purpose:** Combines lines from two files based on a common field.
+   - **Functionality:** Joins lines with matching fields from two sorted files.
+   - **Example:** `join file1.txt file2.txt` joins lines from `file1.txt` and `file2.txt` based on a common field.
+
+5. **split:**
+   - **Purpose:** Splits a file into smaller parts.
+   - **Functionality:** Divides a file into smaller files with a specified number of lines.
+   - **Example:** `split -l 100 filename.txt` creates smaller files with 100 lines each from `filename.txt`.
+
+6. **Regular Expressions and Search Patterns:**
+   - **Purpose:** Used for pattern matching in text.
+   - **Functionality:** Enables sophisticated search and manipulation of text based on patterns.
+   - **Example:** `grep 'pattern' filename.txt` searches for lines containing the specified pattern in `filename.txt`.
+
+### sort:
+
+sort is used to rearrange the lines of a text file, in either ascending or descending order according to a sort key. You can apply the key t to sort according to a particular field (column) in a file. The default sort key is the order of the ASCII characters (i.e. essentially alphabetically).
+
+
+
