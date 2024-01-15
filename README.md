@@ -3094,12 +3094,66 @@ These commands provide convenient ways to work with compressed files directly, m
 ![Screenshot from 2023-11-10 12-07-08](https://github.com/Ankit6989/Linux/assets/114300894/785f0eb7-7bf6-4f29-ac91-0f6e457e6db9)
 
 ### sed Command Syntax:
+You can invoke sed using commands like those listed in the accompanying table.
+
+![image](https://github.com/Ankit6989/Linux/assets/114300894/518b147c-6bf3-47f3-a993-a710b45647b8)
+
 ### sed Basic Operations:
+Now that we know that we can perform multiple editing and filtering operations with sed.
+The table explains some basic operations, where pattern is the current string and replace_string is the new string.
+
+![Screenshot from 2024-01-15 11-56-33](https://github.com/Ankit6989/Linux/assets/114300894/d571e2dc-7ad7-4e00-a928-e6a6134fae8d)
+
+You must use the -i option with care, because the action is not reversible. It is always safer to use sed without the –i option and then replace the file yourself, as shown in the following example:
+
+The above command will replace all occurrences of pattern with replace_string in file1 and move the contents to file2. The contents of file2 can be viewed with cat file2. If you approve, you can then overwrite the original file with mv file2 file1.
+
+Example: To convert 01/02/… to JAN/FEB/…
+
+sed -e 's/01/JAN/' \
+    -e 's/02/FEB/' \
+    -e 's/03/MAR/' \
+    -e 's/04/APR/' \
+    -e 's/05/MAY/' \
+    -e 's/06/JUN/' \
+    -e 's/07/JUL/' \
+    -e 's/08/AUG/' \
+    -e 's/09/SEP/' \
+    -e 's/10/OCT/' \
+    -e 's/11/NOV/' \
+    -e 's/12/DEC/'
 
 ### awk:
+awk is used to extract and then print specific contents of a file and is often used to construct reports. It was created at Bell Labs in the 1970s and derived its name from the last names of its authors: Alfred Aho, Peter Weinberger, and Brian Kernighan.
+
+awk has the following features:
+
+It is a powerful utility and interpreted programming language.
+It is used to manipulate data files, and for retrieving and processing text.
+It works well with fields (containing a single piece of data, essentially a column) and records (a collection of fields, essentially a line in a file).
+
+As with sed, short awk commands can be specified directly at the command line, but a more complex script can be saved in a file that you can specify using the -f option.
+
+![Screenshot from 2024-01-15 12-24-21](https://github.com/Ankit6989/Linux/assets/114300894/0dce4e67-a879-4a8a-99a2-00c59d200d71)
+
 ### awk Basic Operations:
 
+The table explains the basic tasks that can be performed using awk. The input file is read one line at a time, and, for each line, awk matches the given pattern in the given order and performs the requested action. The -F option allows you to specify a particular field separator character. For example, the /etc/passwd file uses ":" to separate the fields, so the -F: option is used with the /etc/passwd file.
+
+The command/action in awk needs to be surrounded with apostrophes (or single-quote (')). awk can be used as follows:
+![Screenshot from 2024-01-15 12-25-16](https://github.com/Ankit6989/Linux/assets/114300894/cef90ce0-6fa4-4163-8798-875815b332fc)
+
+
 ## File Manipulation Utilities:
+
+- In managing your files, you may need to perform tasks such as sorting data and copying data from one location to another. Linux provides numerous file manipulation utilities that you can use while working with text files. In this section, you will learn about the following file manipulation programs:
+
+- **sort**
+- **uniq**
+- **paste**
+- **join**
+- **split**
+
 
 1. **sort:**
    - **Purpose:** Used for sorting lines of text files.
