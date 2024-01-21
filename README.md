@@ -3189,5 +3189,433 @@ The command/action in awk needs to be surrounded with apostrophes (or single-quo
 
 sort is used to rearrange the lines of a text file, in either ascending or descending order according to a sort key. You can apply the key t to sort according to a particular field (column) in a file. The default sort key is the order of the ASCII characters (i.e. essentially alphabetically).
 
+![Screenshot from 2024-01-21 19-24-28](https://github.com/Ankit6989/Linux/assets/114300894/e46d3a1a-b3fb-4849-acae-09df492941ca)
+
+When used with the -u option, sort checks for unique values after sorting the records (lines). It is equivalent to running uniq (which we shall discuss) on the output of sort.
+
+### uniq:
+
+uniq removes duplicate consecutive lines in a text file and is useful for simplifying the text display.
+
+Because uniq requires that the duplicate entries must be consecutive, one often runs sort first and then pipes the output into uniq; if sort is used with the -u option, it can do all this in one step.
+
+To remove duplicate entries from multiple files at once, use the following command:
+
+```sort file1 file2 | uniq > file3```
+
+or
+
+```sort -u file1 file2 > file3```
+
+To count the number of duplicate entries, use the following command:
+
+```uniq -c filename```
+
+### paste:
+
+To efficiently combine the data from the two files into a new file with three columns (name, employee ID, and phone number), you can use the paste command along with the -d and -s options. Assuming the data is organized with one line per employee in each file, and that a single space is used as the delimiter, you can proceed as follows:
+
+
+```paste -d' ' -s file1.txt file2.txt > combined_file.txt```
+
+Here's a breakdown of the command:
+
+paste: Combines lines from multiple files.
+-d' ': Specifies a single space as the delimiter between fields.
+-s: Concatenates the data in series (horizontally).
+Replace file1.txt and file2.txt with the actual filenames of your employee name file and employee ID/phone number file, respectively. The result will be a new file named combined_file.txt with three columns for each employee: name, employee ID, and phone number.
+
+![image](https://github.com/Ankit6989/Linux/assets/114300894/1a23ba49-d1fc-45a4-944d-2d22d2535688)
+
+
+### Using paste:
+
+paste can be used to combine fields (such as name or phone number) from different files, as well as combine lines from multiple files. For example, line one from file1 can be combined with line one of file2, line two from file1 can be combined with line two of file2, and so on.
+
+To paste contents from two files one can do:
+
+```$ paste file1 file2```
+
+The syntax to use a different delimiter is as follows:
+
+```$ paste -d, file1 file2```
+
+Common delimiters are 'space', 'tab', '|', 'comma', etc.
+
+### join:
+
+To combine two files based on a common field (such as names or phone numbers) without repeating the data of common columns, you can use the `join` command. Here's an example assuming the files are organized with one line per employee in each file:
+
+```bash
+join -1 1 -2 1 -t' ' file1.txt file2.txt > combined_file.txt
+```
+
+Explanation of the command:
+
+- `join`: Combines lines from two files based on a common field.
+- `-1 1`: Specifies that the common field in the first file is the first field (column).
+- `-2 1`: Specifies that the common field in the second file is also the first field (column).
+- `-t' '`: Sets the delimiter to a single space.
+- `file1.txt` and `file2.txt`: Replace these with the actual filenames of your two files containing phone numbers with first names and last names.
+- `combined_file.txt`: The output file that will contain the combined data without repeating common columns.
+
+This command will merge the data from both files based on the common field (e.g., first name or phone number) and create a new file (`combined_file.txt`) with the combined information. The result will include columns from both files without duplicating the common columns.
+
+![image](https://github.com/Ankit6989/Linux/assets/114300894/e0b725e0-1442-435a-babe-b4647a0f5dda)
+
+### Using join:
+
+To combine two files on a common field, at the command prompt type join file1 file2 and press the Enter key.
+
+For example, the common field (i.e. it contains the same values) among the phonebook and cities files is the phone number, and the result of joining these two files is shown in the screen capture.
+
+
+### split:
+
+The `split` command is used to break up (or split) a file into equal-sized segments. By default, it divides the file into 1000-line segments. The original file remains unaltered, and a set of new files with the same name plus an added prefix are created. The default prefix is "x," but you can specify a different prefix if needed.
+
+Here are examples of using the `split` command:
+
+1. **Default Split with "x" Prefix:**
+   ```bash
+   split infile
+   ```
+
+   This command will split the file named `infile` into 1000-line segments, and the new files will have names like `xaa`, `xab`, `xac`, and so on, with the default "x" prefix.
+
+2. **Custom Prefix:**
+   ```bash
+   split infile custom_prefix
+   ```
+
+   This command will split the file into 1000-line segments, and the new files will have names like `custom_prefixaa`, `custom_prefixab`, `custom_prefixac`, and so on, with the specified "custom_prefix."
+
+You can adjust the behavior of `split` by specifying options such as the number of lines per segment or the size of each segment using the `-l` or `-b` options, respectively. For example:
+
+```bash
+split -l 500 infile   # Split into 500-line segments
+split -b 1M infile   # Split into 1 MB-sized segments
+```
+
+Remember to replace "infile" with the actual filename you want to split.
+
+![image](https://github.com/Ankit6989/Linux/assets/114300894/565df256-3d55-4f1a-9124-7bd59729a8ba)
+
+### Using split:
+
+We will apply split to a dictionary file of almost 500,000 lines:
+
+```$ wc -l linux.words```
+99171 american-english
+
+where we have used wc (word count, soon to be discussed) to report on the number of lines in the file. Then, typing:
+
+```$ split linux.words lwords```
+
+will split the American-English file into equal-sized segments named lwordsxx. The last one will of course be somewhat smaller.
+
+### Regular Expressions and Search Patterns:
+
+Regular expressions (regex or regexp) are indeed powerful tools for pattern matching and text manipulation. They allow you to define complex search patterns to locate, match, or replace text in strings. Here's a brief overview of some common regex patterns and their usage:
+
+| Pattern      | Description                                                  |
+|--------------|--------------------------------------------------------------|
+| `.`          | Matches any single character except a newline.               |
+| `^`          | Anchors the regex at the start of the line.                  |
+| `$`          | Anchors the regex at the end of the line.                    |
+| `*`          | Matches 0 or more occurrences of the preceding character.    |
+| `+`          | Matches 1 or more occurrences of the preceding character.    |
+| `?`          | Matches 0 or 1 occurrence of the preceding character.        |
+| `[]`         | Defines a character class; matches any single character within the brackets. |
+| `[^]`        | Defines a negated character class; matches any character not within the brackets. |
+| `()`         | Groups patterns together; used for capturing and grouping.   |
+| `|`          | Alternation; acts like a logical OR for multiple patterns.    |
+| `\`          | Escapes a special character, allowing it to be treated as a literal character. |
+| `\d`         | Matches any digit (equivalent to [0-9]).                    |
+| `\w`         | Matches any word character (equivalent to [a-zA-Z0-9_]).     |
+| `\s`         | Matches any whitespace character.                            |
+
+These are just a few basic examples, and regular expressions can get much more complex. As you mentioned, various programming languages and tools (such as Perl, Python, Ruby, `grep`, `sed`, and `awk`) use regular expressions for text processing. Mastering regular expressions can greatly enhance your ability to manipulate and extract information from text data. If you have specific use cases or questions about regular expressions, feel free to ask!
+
+## grep and strings:
+
+### grep:
+
+grep is extensively used as a primary text searching tool. It scans files for specified patterns and can be used with regular expressions, as well as simple strings, as shown in the table:
+
+![Screenshot from 2024-01-21 19-40-32](https://github.com/Ankit6989/Linux/assets/114300894/a34e9c2a-391d-4552-a1f8-a88a3a9e2c6e)
+
+### strings:
+
+The `strings` command is used to extract all printable character strings found in a file or files. It's particularly useful for locating human-readable content embedded in binary files. The example you provided demonstrates how to use `strings` in combination with `grep` to search for a specific string within the extracted content.
+
+Here's a breakdown of the example:
+
+```bash
+$ strings book1.xls | grep my_string
+```
+
+- `strings book1.xls`: Extracts printable character strings from the binary file `book1.xls`. This could include any readable text or information embedded in the binary content.
+
+- `|`: The pipe operator redirects the output of the `strings` command as input to the `grep` command.
+
+- `grep my_string`: Searches for the string "my_string" within the output of `strings`. This helps filter and identify lines containing the specified string.
+
+# Network Operations:
+## Network Addresses and DNS:
+### Introduction to Networking:
+
+A network is a group of computers and computing devices connected together through communication channels, such as cables or wireless media. The computers connected over a network may be located in the same geographical area or spread across the world. The connected devices are often termed nodes.
+
+A network is used to:
+
+Allow the connected devices to communicate with each other.
+Enable multiple users to share devices over the network, such as music and video servers, printers, and scanners.
+Share and manage information such as databases and file systems across computers easily.
+Most organizations have both an internal network and an Internet connection for users to communicate with machines and people outside the organization. The Internet is the largest network in the world and can be called "the network of networks".
+
+### IP Addresses:
+
+Devices attached to a network must have at least one unique network address identifier known as the IP (Internet Protocol) address. This address is essential for routing packets of information through the network.
+
+Exchanging information across the network requires using streams of small packets, each of which contains a piece of the information going from one machine to another. These packets contain data buffers, together with headers which contain information about where the packet is going to and coming from and where it fits in the sequence of packets that constitute the stream. Networking protocols and software are rather complicated due to the diversity of machines and operating systems they must deal with, as well as the fact that even very old standards must be supported.
+
+### IPv4 and IPv6:
+
+Your explanation provides a concise overview of the key differences between IPv4 and IPv6, along with the challenges associated with transitioning from IPv4 to IPv6. Let's recap and expand on some of the points you've made:
+
+1. **IPv4:**
+   - Uses 32-bit addresses, resulting in approximately 4.3 billion unique addresses.
+   - The widespread adoption of the internet has led to a depletion of available IPv4 addresses.
+   - Many addresses are reserved for special purposes, and the exhaustion of available addresses is a significant concern.
+
+2. **IPv6:**
+   - Utilizes 128-bit addresses, offering an immensely larger address space (approximately 3.4 × 10^38 unique addresses).
+   - Designed to address the limitations of IPv4, especially the exhaustion of available addresses.
+   - IPv6 adoption has been slower than initially anticipated due to the complexity of migration and the fact that IPv4 infrastructure is deeply entrenched.
+
+3. **Migration Challenges:**
+   - Transitioning from IPv4 to IPv6 involves a complex process, and the two protocols do not always interoperate seamlessly.
+   - The effort required to move equipment and addresses to IPv6 has slowed down the adoption of the newer protocol.
+   - Many organizations and internet service providers (ISPs) still rely heavily on IPv4, and compatibility issues with existing IPv4 systems can be a barrier to IPv6 adoption.
+
+4. **IPv6 Address Space:**
+   - The vast address space provided by IPv6 is crucial for accommodating the growing number of devices connected to the internet, especially with the rise of the Internet of Things (IoT) and the increasing number of mobile devices.
+
+5. **Current Usage Focus:**
+   - IPv4 is still more commonly encountered in practice due to its historical dominance and the slow pace of IPv6 adoption. However, as the demand for IP addresses continues to rise, IPv6 deployment is becoming more critical.
+
+- It's important for organizations to consider the eventual transition to IPv6 as the global demand for IP addresses continues to increase. While IPv4 remains prevalent, the industry is gradually moving toward IPv6 to ensure the scalability and sustainability of the internet infrastructure.
+
+- One reason IPv4 has not disappeared is there are widely-used ways to effectively make many more addresses available by methods such as NAT (Network Address Translation).  NAT enables sharing one IP address among many locally connected computers, each of which has a unique address only seen on the local network. While this is used in organizational settings, it is also used in simple home networks. For example, if you have a router hooked up to your Internet Provider (such as a cable system) it gives you one externally visible address, but issues each device in your home an individual local address, which is invisible to the outside world.
+
+![Screenshot from 2024-01-21 20-53-03](https://github.com/Ankit6989/Linux/assets/114300894/33f9051b-f8b4-43dd-b69f-eda58f899a65)
+
+![Screenshot from 2024-01-21 21-01-25](https://github.com/Ankit6989/Linux/assets/114300894/8338f3ec-616f-45ca-a299-9cf8f22c3f0d)
+
+### Decoding IPv4 Addresses:
+
+![Screenshot from 2024-01-21 21-02-53](https://github.com/Ankit6989/Linux/assets/114300894/19d9fd5a-0819-4dd2-bff5-0e447fc5b226)
+
+![Screenshot from 2024-01-21 21-05-04](https://github.com/Ankit6989/Linux/assets/114300894/423d2a7f-7bf5-4da2-8728-b9453ac3a648)
+
+![Screenshot from 2024-01-21 21-05-31](https://github.com/Ankit6989/Linux/assets/114300894/b30dac3b-a7d8-4750-8643-a35188a706bb)
+
+![Screenshot from 2024-01-21 21-05-56](https://github.com/Ankit6989/Linux/assets/114300894/97580a78-5bf5-4364-a394-2cbed88da7d1)
+
+![Screenshot from 2024-01-21 21-06-16](https://github.com/Ankit6989/Linux/assets/114300894/5dec1a2c-4b4a-4221-8fb6-ab6a045c3b74)
+
+### IP Address Allocation:
+
+Typically, a range of IP addresses are requested from your Internet Service Provider (ISP) by your organization's network administrator. Often, your choice of which class of IP address you are given depends on the size of your network and expected growth needs. If NAT is in operation, such as in a home network, you only get one externally visible address!
+
+![Screenshot from 2024-01-21 21-36-17](https://github.com/Ankit6989/Linux/assets/114300894/7fa853c1-8132-4bb1-ae8c-3478c16c1083)
+
+You can assign IP addresses to computers over a network either manually or dynamically. Manual assignment adds static (never changing) addresses to the network. Dynamically assigned addresses can change every time you reboot or even more often; the Dynamic Host Configuration Protocol (DHCP) is used to assign IP addresses.
+
+### Name Resolution:
+
+1. **Name Resolution:**
+   - Name resolution is the process of converting numerical IP addresses into human-readable hostnames and vice versa. This is essential for making network communication more user-friendly.
+
+2. **Example:**
+   - You provided an example of the IP address 3.13.31.214 being associated with the hostname linuxfoundation.org. This mapping allows users to refer to a remote machine using a memorable hostname instead of a numerical IP address.
+
+3. **Ease of Access:**
+   - Using hostnames instead of IP addresses makes it easier for users to access machines over a network. Hostnames are typically more intuitive and easier to remember than strings of numbers.
+
+4. **Viewing System Hostname:**
+   - On a system, users can view the current hostname by typing the command `hostname` with no argument. This is a convenient way to identify the machine's name within a network.
+
+5. **Changing Hostname:**
+   - The note mentions that if you provide an argument to the `hostname` command, the system will attempt to change its hostname to match the specified value. However, changing the hostname generally requires administrative privileges, and only root users (superusers) can perform this operation.
+
+6. **Special Hostname - localhost:**
+   - The special hostname "localhost" is associated with the IP address 127.0.0.1. This IP address is reserved for loopback, meaning it refers to the local machine itself. The term "localhost" is commonly used to describe the machine you are currently on, and it often has additional network-related IP addresses.
+
+Understanding name resolution is crucial for efficient communication across networks, and using hostnames enhances the usability of networked systems.
+
+
+## Networking Configuration and Tools:
+### Network Configuration Files:
+
+Network configuration files are settings and parameters stored in files on a computer system that dictate how the network interfaces and protocols should behave. These files are typically used in Unix-like operating systems, including Linux, to define networking settings. Here are some common network configuration files:
+
+1. **/etc/network/interfaces (Debian/Ubuntu):**
+   - This file is used to configure network interfaces on Debian-based systems. It includes information about IP addresses, netmasks, gateways, and more. Here is an example snippet:
+
+     ```
+     auto eth0
+     iface eth0 inet static
+         address 192.168.1.2
+         netmask 255.255.255.0
+         gateway 192.168.1.1
+     ```
+
+2. **/etc/sysconfig/network-scripts/ifcfg-<interface> (Red Hat-based systems):**
+   - Red Hat-based systems, including Fedora and CentOS, use individual files for each network interface. For example, ifcfg-eth0 might contain settings for the first Ethernet interface. An example configuration:
+
+     ```
+     DEVICE=eth0
+     BOOTPROTO=static
+     IPADDR=192.168.1.2
+     NETMASK=255.255.255.0
+     GATEWAY=192.168.1.1
+     ```
+
+3. **/etc/network/interfaces.d/ (Debian/Ubuntu):**
+   - On Debian-based systems, you might find additional configuration files within the `/etc/network/interfaces.d/` directory. These files are often used to organize and modularize network configurations.
+
+4. **/etc/networks:**
+   - This file contains network name-to-address mappings. It's used less frequently but can be helpful for defining network names.
+
+5. **/etc/hosts:**
+   - While not strictly a network configuration file, the `/etc/hosts` file is used to manually map IP addresses to hostnames. It can be useful for local network resolution.
+
+6. **/etc/resolv.conf:**
+   - This file contains information about the domain name system (DNS) resolver configuration. It includes details about DNS servers that the system should use for domain name resolution.
+
+7. **/etc/nsswitch.conf:**
+   - The Name Service Switch configuration file determines the order of service lookups, including hostnames. It specifies where the system should look for information like hostnames, passwords, and more.
+
+8. **/etc/host.conf:**
+   - This file is used to configure resolver library behavior. It may include settings for how the system resolves hostnames.
+
+Remember, the specific files and their locations can vary between different Linux distributions. These files are critical for ensuring proper network functionality and are edited by administrators to set up static IP addresses, configure networking protocols, and define other network-related parameters. Always make backups before modifying these files, as incorrect configurations can lead to network issues.
+
+### Network Interfaces:
+
+1. **Network Interfaces:**
+   - Network interfaces serve as connection channels between a computing device (such as a computer or a server) and a network. These interfaces can be physical, like a Network Interface Card (NIC), or they can be abstract and implemented in software.
+
+2. **Activation and Deactivation:**
+   - Network interfaces can be in an activated (up) or deactivated (down) state. Administrators can bring specific interfaces up or down as needed. This flexibility is useful for managing network connections and resources.
+
+3. **Utilities for Interface Information:**
+   - Two common utilities for obtaining information about network interfaces are `ifconfig` and `ip`.
+     - **ifconfig:** Historically used for configuring network interfaces, it provides information about the current network configuration. However, it is considered somewhat outdated, and newer distributions may not include it by default.
+     - **ip:** A more modern and powerful utility, `ip` provides a wide range of functionalities for configuring and displaying information about network interfaces. It is recommended for use over `ifconfig` for its richer feature set.
+
+4. **Running Utilities as Superuser:**
+   - To view or modify network interface configurations, you often need superuser (root) privileges. This is because network configurations can have a significant impact on the system's connectivity and security.
+
+5. **Path to Utilities:**
+   - Depending on the Linux distribution, you might need to provide the full path to the utilities, especially if you are not running them with root privileges. For example, using `/sbin/ifconfig` ensures that the correct version of `ifconfig` is executed.
+
+6. **Installation of net-tools Package:**
+   - Some newer Linux distributions may not come with the older net-tools package, which includes `ifconfig`. If you prefer to use `ifconfig` or if it is required for specific tasks, you may need to install this package separately.
+
+### The ip Utility:
+
+To view the IP address:
+
+```$ /sbin/ip addr show```
+
+To view the routing information:
+
+```$ /sbin/ip route show```
+
+ip is a very powerful program that can do many things. Older (and more specific) utilities such as ifconfig and route are often used to accomplish similar tasks. A look at the relevant man pages can tell you much more about these utilities.
+
+### ping:
+
+ping is used to check whether or not a machine attached to the network can receive and send data; i.e. it confirms that the remote host is online and is responding.
+
+To check the status of the remote host, at the command prompt, type ping <hostname>.
+
+ping is frequently used for network testing and management; however, its usage can increase network load unacceptably. Hence, you can abort the execution of ping by typing CTRL-C, or by using the -c option, which limits the number of packets that ping will send before it quits. When execution stops, a summary is displayed. Some hosts refuse to answer ping requests
+
+### route:
+
+A network requires the connection of many nodes. Data moves from source to destination by passing through a series of routers and potentially across multiple networks. Servers maintain routing tables containing the addresses of each node in the network. The IP routing protocols enable routers to build up a forwarding table that correlates final destinations with the next hop addresses.
+
+One can use the route utility (or the newer ip route command) to view or change the IP routing table to add, delete, or modify specific (static) routes to specific hosts or networks. The table explains some commands that can be used to manage IP routing:
+
+![Screenshot from 2024-01-21 22-00-04](https://github.com/Ankit6989/Linux/assets/114300894/d064ad65-bc68-4df0-9403-30c46b5d69e7)
+
+### traceroute:
+
+traceroute is used to inspect the route which the data packet takes to reach the destination host, which makes it quite useful for troubleshooting network delays and errors. By using traceroute, you can isolate connectivity issues between hops, which helps resolve them faster.
+
+To print the route taken by the packet to reach the network host, at the command prompt, type traceroute <address>.
+
+### More Networking Tools:
+
+Now, let’s learn about some additional networking tools. Networking tools are very useful for monitoring and debugging network problems, such as network connectivity and network traffic.
+
+![Screenshot from 2024-01-21 22-04-19](https://github.com/Ankit6989/Linux/assets/114300894/78e366da-34e1-4b6e-97d3-11dcf4546d9b)
+
+## Browsers, wget and curl:
+### Graphical and Non-Graphical Browsers:
+
+![Screenshot from 2024-01-21 22-10-01](https://github.com/Ankit6989/Linux/assets/114300894/b130d8f2-72fb-4ad4-84fc-a28124148ee7)
+
+### wget:
+
+Sometimes, you need to download files and information, but a browser is not the best choice, either because you want to download multiple files and/or directories, or you want to perform the action from a command line or a script. wget is a command line utility that can capably handle the following types of downloads:
+
+Large file downloads
+Recursive downloads, where a web page refers to other web pages and all are downloaded at once
+Password-required downloads
+Multiple file downloads.
+To download a web page, you can simply type wget <url>, and then you can read the downloaded page as a local file using a graphical or non-graphical browser.
+
+### curl:
+
+Besides downloading, you may want to obtain information about a URL, such as the source code being used. curl can be used from the command line or a script to read such information. curl also allows you to save the contents of a web page to a file, as does wget.
+
+You can read a URL using curl <URL>. For example, if you want to read http://www.linuxfoundation.org, type curl http://www.linuxfoundation.org.
+
+To get the contents of a web page and store it to a file, type curl -o saved.html http://www.mysite.com. The contents of the main index file at the website will be saved in saved.html.
+
+## Transferring Files:
+### FTP (File Transfer Protocol): 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
