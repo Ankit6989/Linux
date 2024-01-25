@@ -3590,10 +3590,285 @@ To get the contents of a web page and store it to a file, type curl -o saved.htm
 
 ## Transferring Files:
 ### FTP (File Transfer Protocol): 
+- When you are connected to a network, you may need to transfer files from one machine to another. File Transfer Protocol (FTP) is a well-known and popular method for transferring files between computers using the Internet. This method is built on a client-server model. FTP can be used within a browser or with stand-alone client programs.
+- FTP is one of the oldest methods of network data transfer, dating back to the early 1970s. As such, it is considered inadequate for modern needs, as well as being intrinsically insecure. However, it is still in use and when security is not a concern (such as with so-called anonymous FTP) it can make sense.
 
+### FTP Clients:
 
+1. **File Transfer Protocol (FTP):**
+   - **Purpose:** FTP is designed for transferring files between a client and a server on a computer network.
+   - **History:** It dates back to the early 1970s and has been widely used for decades.
+   - **Protocol Type:** It uses a client-server architecture, where the client initiates a connection to the server to perform file transfers.
 
+2. **FTP Clients:**
+   - **Graphical Clients:** FileZilla is a popular example of a graphical FTP client, offering a user-friendly interface for file transfers.
+   - **Command Line Clients:**
+      - `ftp`: A basic command-line FTP client.
+      - `sftp`: Secure File Transfer Protocol, which uses the Secure Shell (SSH) protocol for encryption.
+      - `ncftp`: A powerful and user-friendly FTP client with an advanced set of features.
+      - `yafc`: Yet Another FTP Client, which is another option for command-line FTP.
 
+3. **FTP in Web Browsers:**
+   - Web browsers can also be used for FTP by specifying the URL with the FTP protocol (e.g., `ftp://ftp.kernel.org`). However, this method is less common nowadays.
+
+4. **Security Concerns with FTP:**
+   - **Insecurity of Traditional FTP:** Traditional FTP transmits data, including passwords, in plain text, making it vulnerable to interception. This lack of encryption is a significant security concern.
+   - **Modern Alternatives:** Due to security issues, many modern websites have transitioned to more secure methods, such as HTTPS for web access and protocols like rsync for file synchronization.
+
+5. **SFTP as a Secure Alternative:**
+   - **Secure Shell (SSH):** SFTP uses the SSH protocol, providing a secure and encrypted channel for file transfers.
+   - **Encryption:** Sensitive information is encrypted during transmission, addressing the security concerns associated with traditional FTP.
+   - **Limitation:** SFTP, however, may not support anonymous FTP (guest user credentials) due to its focus on secure, authenticated connections.
+  
+![Screenshot from 2024-01-25 14-19-53](https://github.com/Ankit6989/Linux/assets/114300894/3dce571c-a771-4d83-a095-36a6cb90d831)
+
+### SSH: Executing Commands Remotely:
+
+- Secure Shell (SSH) is a cryptographic network protocol used for secure data communication. It is also used for remote services and other secure services between devices on the network and is very useful for administering systems which are not easily available to physically work on, but to which you have remote access.
+
+![Screenshot from 2024-01-25 14-22-56](https://github.com/Ankit6989/Linux/assets/114300894/639e15ce-0f6d-431e-b9fa-95be39497f47)
+
+- To login to a remote system using your same user name you can just type ssh some_system and press Enter. ssh then prompts you for the remote password. You can also configure ssh to securely allow your remote access without typing a password each time.
+
+- If you want to run as another user, you can do either ssh -l someone some_system or ssh someone@some_system. To run a command on a remote system via SSH, at the command prompt, you can type ssh some_system my_command.
+
+### Copying Files Securely with scp:
+
+We can also move files securely using Secure Copy (scp) between two networked hosts. scp uses the SSH protocol for transferring data.
+
+To copy a local file to a remote system, at the command prompt, type scp <localfile> <user@remotesystem>:/home/user/ and press Enter.
+
+You will receive a prompt for the remote password. You can also configure scp so that it does not prompt for a password for each transfer.
+
+![Screenshot from 2024-01-25 14-27-22](https://github.com/Ankit6989/Linux/assets/114300894/9e5a0355-9830-4b65-9564-74e16ad9a123)
+
+# The Bash Shell and Basic Scripting:
+## Features and Capabilities:
+### Shell Scripting:
+
+Suppose you want to look up a filename, check if the associated file exists, and then respond accordingly, displaying a message confirming or not confirming the file's existence. If you only need to do it once, you can just type a sequence of commands at a terminal. However, if you need to do this multiple times, automation is the way to go. In order to automate sets of commands, you will need to learn how to write shell scripts. Most commonly in Linux, these scripts are developed to be run under the bash command shell interpreter. The graphic illustrates several of the benefits of deploying scripts
+
+![Screenshot from 2024-01-25 14-51-22](https://github.com/Ankit6989/Linux/assets/114300894/674012a9-49de-452e-a426-f320a2fb17e2)
+
+### Command Shell Choices:
+
+1. **Common Interpreters:**
+   - `/usr/bin/perl`, `/bin/bash`, `/bin/csh`, `/usr/bin/python`, and `/bin/sh` are examples of commonly used command interpreters on Linux systems.
+   - Each interpreter is designed for specific purposes and scripting languages (e.g., Bash for shell scripting, Perl for text processing, Python for general-purpose scripting).
+
+2. **Benefits of Shell Scripts:**
+   - Shell scripts simplify and automate the execution of complex sequences of commands.
+   - They enhance efficiency and reduce the likelihood of errors associated with manually typing long command sequences.
+   - Shell scripts, being saved in files, can be easily shared, modified, and reused. This facilitates the creation of standard procedures and the development of variations for different needs.
+
+3. **Choice of Shells:**
+   - Linux offers a variety of shells, as listed in `/etc/shells`. Common choices include `/bin/sh`, `/bin/bash`, `/bin/tcsh`, `/bin/csh`, `/bin/ksh`, and `/bin/zsh`.
+   - The default shell for most Linux users is often Bash (`/bin/bash`), known for its widespread use and rich set of features.
+   - Users with a background in UNIX systems may prefer different shells based on their preferences and experiences.
+
+4. **Default Bash Shell:**
+   - Bash (Bourne Again SHell) is the default shell for many Linux distributions due to its popularity and versatility.
+   - Users can override the default shell if they have a preference for a different shell based on their UNIX background or specific requirements.
+  
+![Screenshot from 2024-01-25 14-59-10](https://github.com/Ankit6989/Linux/assets/114300894/782c4596-2796-4848-ae66-f24b3fd476e7)
+
+### History of Command Shells:
+
+- sh was written by Steve Bourne at AT&T in 1977, and is often known as the Bourne Shell. All
+other shells are descended from it in some fashion and it is available on all systems that have a
+UNIX bloodline.
+- csh was written by Bill Joy at UC Berkeley and released in 1978. The internal syntax is quite
+different than sh and is designed to resemble the C programming language, and hence the
+name.
+- tcsh was originally developed by Ken Greer at Carnegie Mellon University in the late 1970's;
+the t in tcsh stands for TENEX, an operating system that was used on some DEC PDP-10's. It
+has many additional features as compared with csh and on virtually all modern systems csh is
+just a link to tcsh.
+- ksh was written by David Korn at AT&T and appeared in 1982, and is often known as the Korn
+shell. It was designed to be a major upgrade to sh and is backward compatible with it, and
+brings in some of the features of tcsh, such as command line history recall. This shell has long
+been a favorite of many system administrators.
+- bash is a product of the GNU project and was created in 1987. It was designed as a major
+upgrade of sh; the name stands for Bourne Again Shell. It has full backward compatibility with
+sh and partial compatibility with ksh.
+- On all Linux systems sh is just a link to bash, but scripts which are invoked as sh will only work without the bash extensions. A similar relationship exists between csh and tcsh.
+
+### Shell Script:
+
+```https://www.youtube.com/watch?v=TtGM9GfBuok&list=PL0tP8lerTbX3MeIyMxGW2sLhWnPdn_xhd```
+
+# Local Security Principles:
+## Understanding Linux Security:
+### User Accounts:
+
+- The Linux kernel allows properly authenticated users to access files and applications. While each user is identified by a unique integer (the user id or UID), a separate database associates a username with each UID. Upon account creation, new user information is added to the user database and the user's home directory must be created and populated with some essential files. Command line programs such as useradd and userdel as well as GUI tools are used for creating and removing accounts.
+
+1. **User Identification:**
+   - Each user in a Linux system is identified by a unique integer known as the User ID (UID). This UID is associated with various permissions and ownership settings.
+
+2. **Username Database:**
+   - A separate database associates a human-readable username with each UID. This database is commonly stored in the `/etc/passwd` file or other related files.
+
+3. **Account Creation:**
+   - When a new user account is created, the user's information is added to the user database. This includes the assignment of a UID and other relevant details.
+
+4. **Home Directory:**
+   - Upon account creation, a home directory is typically created for the user. The home directory is where the user stores personal files and configurations.
+
+5. **Essential Files:**
+   - Essential files such as configuration files, shell initialization files (like `.bashrc`), and other user-specific settings are often populated in the user's home directory.
+
+6. **User Management Tools:**
+   - Command-line programs like `useradd` and `userdel` are commonly used for creating and removing user accounts. GUI tools may also be available, depending on the desktop environment.
+
+It's important to note that while `useradd` and `userdel` are core tools for user management, there are also related tools such as `usermod` for modifying existing user accounts. Additionally, group-related commands like `groupadd` and `groupdel` exist for managing user groups.
+
+![Screenshot from 2024-01-25 15-59-12](https://github.com/Ankit6989/Linux/assets/114300894/aba1316e-bc10-49c6-a283-6070b48aa734)
+
+### Types of Accounts:
+- By default, Linux distinguishes between several account types in order to isolate processes and workloads. Linux has four types of accounts:
+
+1. **Account Types:**
+   - **root:** The superuser account with elevated privileges, often used for system administration tasks.
+   - **System:** Accounts used by system processes and services, typically having limited privileges.
+   - **Normal:** Standard user accounts for regular users with normal access privileges.
+   - **Network:** It's not a standard Linux account type. It's possible that specific organizations or systems might have a custom classification for network-related accounts.
+
+2. **Security Practices:**
+   - **Minimum Privileges:** Following the principle of least privilege, it's advised to grant the minimum necessary privileges to each account to reduce the potential impact of security breaches.
+
+   - **Inactive Account Removal:** Identifying and removing inactive accounts helps enhance security by minimizing the potential for unauthorized access.
+
+3. **Last Utility:**
+   - The `last` utility, which shows the last time each user logged into the system, can be a useful tool for identifying potentially inactive accounts. This information can be valuable when considering whether an account should be removed.
+
+4. **Security Considerations:**
+   - The statement acknowledges the importance of adjusting security practices based on the context. On multi-user business systems, stricter security practices are often necessary compared to personal desktop systems.
+
+5. **Flexibility for Personal Systems:**
+   - Recognizing that personal systems may have different usage patterns and security requirements, the statement acknowledges that users may choose to relax security rules on their personal systems.
+
+### Understanding the root Account:
+
+root is the most privileged account on a Linux/UNIX system. This account has the ability to carry out all facets of system administration, including adding accounts, changing user passwords, examining log files, installing software, etc. Utmost care must be taken when using this account. It has no security restrictions imposed upon it.
+
+When you are signed in as, or acting as root, the shell prompt displays '#' (if you are using bash and you have not customized the prompt, as we have discussed previously). This convention is intended to serve as a warning to you of the absolute power of this account.
+
+## When are root Privileges Required?
+### Operations Requiring root Privileges:
+
+1. **Operations Requiring Root Privileges:**
+   - **Creating, removing, and managing user accounts:** Tasks related to user account management, such as adding or removing users, changing passwords, etc., typically require root privileges.
+
+   - **Managing software packages:** Installing, removing, or updating system-wide software packages using package managers (e.g., `apt`, `yum`) requires root privileges.
+
+   - **Removing or modifying system files:** Operations involving system files or directories outside a regular user's scope, especially those critical to the system's functionality, require root privileges.
+
+   - **Restarting system services:** Tasks such as restarting or managing system-level services (e.g., web servers, databases) typically require root privileges.
+
+2. **Contrast with Regular User Privileges:**
+   - Regular user accounts in Linux distributions often have limitations on performing certain administrative tasks.
+   
+   - Regular users might be allowed to perform tasks like installing software packages within their home directories, changing personal settings, using peripheral devices, and making changes to their own user-specific configurations.
+
+3. **Importance of Root Privilege:**
+   - Root privileges are crucial for performing administrative tasks that impact the overall system configuration, stability, and security.
+
+   - Some tasks, such as restarting services or modifying critical system files, have a system-wide impact, and root privileges are necessary to ensure proper authorization and control over these actions.
+
+Understanding the need for root privileges helps users navigate the system safely and emphasizes the principle of least privilege, where users are granted the minimum level of access necessary to perform their tasks. It's also common to use tools like `sudo` to temporarily elevate privileges for specific commands rather than being continuously logged in as the root user.
+
+![Screenshot from 2024-01-25 16-04-28](https://github.com/Ankit6989/Linux/assets/114300894/cea6fd57-474d-4bd1-9e13-12314dcb37e8)
+
+### Operations Not Requiring root Privileges:
+
+A regular account user can perform some operations requiring special permissions; however, the system configuration must allow such abilities to be exercised.
+
+SUID (Set owner User ID upon execution - similar to the Windows "run as" feature) is a special kind of file permission given to a file. Use of SUID provides temporary permissions to a user to run a program with the permissions of the file owner (which may be root) instead of the permissions held by the user.
+
+The table provides examples of operations which do not require root privileges:
+
+![Screenshot from 2024-01-25 16-06-37](https://github.com/Ankit6989/Linux/assets/114300894/8386f4ce-499c-4c7b-a281-3fcf5de17f77)
+
+## sudo, Process Isolation, Limiting Hardware Access and Keeping Systems Current:
+### Comparing sudo and su:
+
+- In Linux you can use either su or sudo to temporarily grant root access to a normal user. However, these methods are actually quite different. Listed below are the differences between the two commands:
+
+![Screenshot from 2024-01-25 16-08-54](https://github.com/Ankit6989/Linux/assets/114300894/0a82ae86-959d-49d5-9581-3296fba1960e)
+
+### Process Isolation:
+
+1. **Process Isolation:**
+   - Linux provides natural isolation between processes. Each process is generally unable to access the resources of another process, even if they are running with the same user privileges.
+
+2. **Security Against Exploits:**
+   - This process isolation makes it difficult for viruses and security exploits to access and attack random resources on the system.
+
+3. **Control Groups (cgroups):**
+   - Control Groups (cgroups) is a feature that allows system administrators to group processes and associate finite resources to each cgroup.
+  
+4. **Containers:**
+   - Containers leverage cgroups and provide a way to run multiple isolated Linux systems on a single host. Containers are lightweight and efficient, offering a higher level of isolation for applications.
+
+5. **Virtualization:**
+   - Virtualization allows for the emulation of hardware in a way that not only isolates processes but also enables entire systems to run simultaneously as isolated and insulated guests (virtual machines) on a single physical host.
+
+6. **Limiting Risks:**
+   - The mentioned security mechanisms, such as cgroups, containers, and virtualization, contribute to limiting risks and enhancing the overall security posture of Linux systems.
+
+![Screenshot from 2024-01-25 16-10-56](https://github.com/Ankit6989/Linux/assets/114300894/95be5b50-c1b0-4867-858e-65e74c131fca)
+
+## Working with Passwords:
+### How Passwords are Stored:
+
+The system verifies authenticity and identity using user credentials.
+
+Originally, encrypted passwords were stored in the /etc/passwd file, which was readable by everyone. This made it rather easy for passwords to be cracked.
+
+On modern systems, passwords are actually stored in an encrypted format in a secondary file named /etc/shadow. Only those with root access can read or modify this file.
+
+![Screenshot from 2024-01-25 16-13-30](https://github.com/Ankit6989/Linux/assets/114300894/139c72cb-cd6b-4a95-a6f2-b9dfd39fe4b6)
+
+### Password Encryption:
+
+1. **Importance of Protecting Passwords:**
+   - Protecting passwords is a crucial element of security. Passwords are a common authentication method, and their encryption is vital to prevent unauthorized access.
+
+2. **SHA-512 Algorithm:**
+   - SHA-512 (Secure Hashing Algorithm 512 bits) is a modern password encryption algorithm widely used in Linux distributions.
+  
+   - It was developed by the U.S. National Security Agency (NSA) and is known for its security features.
+
+3. **Applications and Protocols:**
+   - SHA-512 is used in various security applications and protocols, including TLS (Transport Layer Security), SSL (Secure Sockets Layer), PHP (Hypertext Preprocessor), SSH (Secure Shell), S/MIME (Secure/Multipurpose Internet Mail Extensions), and IPSec (Internet Protocol Security).
+
+4. **Testing and Reliability:**
+   - SHA-512 is described as one of the most tested hashing algorithms. This indicates that it has undergone extensive scrutiny and evaluation for security and reliability.
+
+5. **Example:**
+   - The example provided mentions using the `sha512sum` program to encode the word "test" and produce the SHA-512 hash.
+
+Using strong and well-tested cryptographic algorithms, such as SHA-512, contributes significantly to the security of password storage and authentication systems in Linux and other environments. It ensures that passwords are stored in a secure and hashed format, making it difficult for attackers to reverse the process and obtain the original password.
+
+### Good Password Practices:
+
+1. **Password Aging:**
+   - Password aging is a method implemented to remind users to create a new password after a specific period. This practice helps ensure that even if passwords are cracked, they will only be usable for a limited amount of time.
+   
+   - The `chage` command is commonly used to configure password expiry information for a user.
+
+2. **Forcing Strong Passwords with PAM:**
+   - Pluggable Authentication Modules (PAM) can be configured to enforce strong password policies. This ensures that passwords meet certain criteria for strength.
+
+   - PAM configuration can use libraries like `pam_cracklib.so` to automatically verify password strength. Additionally, `pam_passwdqc.so` can be used for more options.
+
+3. **Password Cracking Programs:**
+   - Installing password cracking programs, such as John The Ripper, is mentioned as a proactive measure to secure the password file and identify weak password entries.
+
+   - It's emphasized that written authorization should be obtained before installing such tools, especially on systems that you do not own. This underscores the importance of ethical considerations and obtaining proper permissions for security testing.
+
+These practices collectively contribute to enhancing password security and minimizing the risk of unauthorized access due to weak or compromised passwords. The combination of password aging, strong password enforcement, and proactive measures like password cracking programs demonstrates a comprehensive approach to password security in IT environments.
 
 
 
